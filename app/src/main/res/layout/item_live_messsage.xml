@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/liveholder"
+    android:layout_height="wrap_content">
+
+    <github.ankushsachdeva.emojicon.EmojiconTextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/live_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/message_placeholder"
+        android:textColor="@color/text_black"
+        android:textIsSelectable="true"
+        android:textSize="15sp"
+        app:emojiconSize="10pt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/liveusername"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#26BEFF"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:id="@+id/livesticker"
+android:layout_marginBottom="5dp"
+        android:visibility="gone"
+
+        android:gravity="start"/>
+    <TextView
+
+        android:id="@+id/time_stamp_live_sticker"
+        android:textColor="@color/seen_message_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/time_placeholder"
+        android:textSize="5pt" />
+
+</LinearLayout>
+    <TextView
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/time_stamp_live_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/liveholder"
+        android:gravity="start"
+        android:textColor="@color/time_stamp"
+        android:text="@string/time_placeholder"
+        android:textSize="5pt" />
+</RelativeLayout>
+

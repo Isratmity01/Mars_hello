@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/image_dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/your_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity = "center"
+        android:layout_gravity="center"
+        app:srcCompat = "@drawable/user_pic_02"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/semitransparent"
+        app:titleTextColor="@color/colorPrimaryDark"
+
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+
+        <ImageButton
+            android:layout_width="19dp"
+            android:layout_gravity="right"
+            android:id="@+id/editprofile"
+            android:layout_marginEnd="22dp"
+            android:visibility="gone"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/ic_edit"
+            android:layout_height="19dp" />
+    </android.support.v7.widget.Toolbar>
+</RelativeLayout>

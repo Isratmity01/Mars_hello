@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    tools:context="com.grameenphone.mars.activity.DetailsHelpLegalActivity">
+
+    <View
+        android:id="@+id/border8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+
+    <ImageView
+        android:layout_below="@+id/border8"
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/ic_fill_133"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/help_and_about_description" />
+
+    <TextView
+        android:id="@+id/text"
+        android:lineSpacingExtra="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:textSize="17sp"
+        android:textColor="#8190a7"
+        android:text="@string/help_placeholder" />
+</RelativeLayout>

@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "139201140596",
+    "firebase_url": "https://mars-e7047.firebaseio.com",
+    "project_id": "mars-e7047",
+    "storage_bucket": "mars-e7047.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139201140596:android:afac4e0d84773da7",
+        "android_client_info": {
+          "package_name": "com.grameenphone.mars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139201140596-2f4j79ev01iaj5877475lqp3mi8jv77b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grameenphone.mars",
+            "certificate_hash": "10f060d6725d57dfe9bb0882cbac168e4e5e2bb9"
+          }
+        },
+        {
+          "client_id": "139201140596-4qg3ae1o73hpukm2bmdn3272qrj3ajjh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grameenphone.mars",
+            "certificate_hash": "b758f1d1bbe1af05a3bbb1425f08461bdc8f1eb3"
+          }
+        },
+        {
+          "client_id": "139201140596-hsljrn7f4gvqhdok3a8a69pc1g0hc5to.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqOurAEaAI5JxuJR8TASvaEiQFclI_gvA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139201140596-hsljrn7f4gvqhdok3a8a69pc1g0hc5to.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

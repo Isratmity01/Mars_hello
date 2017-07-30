@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_holder_receiver"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/receiversImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_user_pic_02" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_toEndOf="@+id/receiversImage"
+                android:layout_toRightOf="@+id/receiversImage"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp">
+
+                <ImageView
+                    android:id="@+id/receivers_image_view"
+                    android:layout_width="220dp"
+                    android:layout_height="190dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="centerCrop" />
+
+
+                <TextView
+                    android:id="@+id/receiversName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/receivers_image_view"
+                    android:layout_toRightOf="@+id/receivers_image_view"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="11:57pm"
+                    android:textSize="5pt"
+                    android:textColor="@color/time_stamp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

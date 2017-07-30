@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2014 Ankush Sachdeva
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="57dp"
+            android:layout_marginRight="57dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/emoticons"
+                android:layout_width="150dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_group_4_selected"
+                android:scaleType="center"
+                android:text="ইমোজি"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/stickers"
+                android:layout_width="150dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_group_5"
+                android:scaleType="center"
+                android:text="স্টিকার"
+                android:textColor="#26beff" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toplayout"
+        android:orientation="vertical"
+        android:id="@+id/subcatholder"
+        android:background="#AEC3E3"
+        android:layout_height="wrap_content">
+
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:id="@+id/emojis_tab"
+            android:scrollbars="none"
+
+            android:layout_height="40dp"
+            android:layout_below="@+id/toplayout"
+            android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:weightSum="8"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:background="@null"
+                android:layout_width="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_0_recents"
+                android:src="@drawable/ic_emoji_recent_light" />
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_height="23dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_1_people"
+                android:src="@drawable/ic_emoji_people_light" />
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_height="23dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_2_nature"
+                android:src="@drawable/ic_emoji_nature_light" />
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_height="23dp"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_3_objects"
+                android:src="@drawable/ic_emoji_objects_light" />
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_width="40dp"
+                android:layout_height="23dp"
+
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_4_cars"
+                android:src="@drawable/ic_emoji_places_light" />
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_height="23dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_tab_5_punctuation"
+                android:src="@drawable/ic_emoji_symbols_light" />
+
+
+            <ImageButton
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_height="23dp"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:id="@+id/emojis_backspace"
+                android:src="@drawable/sym_keyboard_delete_holo_dark" />
+
+        </LinearLayout>
+</HorizontalScrollView>
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:id="@+id/stickers_tab"
+
+            android:visibility="gone"
+            android:layout_height="40dp"
+            android:layout_below="@+id/toplayout"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/stickers_tab_0"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/hello1" />
+
+                <ImageButton
+                    android:id="@+id/stickers_tab_1"
+                    android:layout_width="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/golu1" />
+
+                <ImageButton
+                    android:id="@+id/stickers_tab_2"
+                    android:layout_width="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lombu1" />
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/emojis_pager"
+        android:layout_width="match_parent"
+        android:layout_below="@id/subcatholder"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"/>
+
+</RelativeLayout>

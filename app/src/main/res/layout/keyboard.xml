@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.grameenphone.marskeyboard.LatinKeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:background="@color/keyboard_background"
+    android:keyBackground="@color/keyboard_background"
+    android:keyTextColor="@color/keyboard_key"
+    android:shadowRadius="0.0"
+    android:keyPreviewLayout="@layout/preview"
+    android:keyPreviewOffset="10dp"
+    android:keyTextSize="24dp"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.grameenphone.mars">
+    <uses-permission android:name="android.permission.SET_ALWAYS_FINISH"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".ApplicationChat"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SignInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ChatRoomActivity"
+            android:label=""
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.AddaLiveActivity"
+            android:label="@string/adda"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.GroupChatListActivity"
+            android:label="@string/groups"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.GroupAddActivity"
+            android:label="@string/group_add"
+            android:parentActivityName=".activity.GroupChatListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.GroupChatListActivity" />
+        </activity>
+        <activity
+            android:name=".activity.NewMessageActivity"
+            android:label="@string/new_message_bn"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name=".gcm.SinchService"
+            android:exported="true"
+            android:enabled="true"
+            />
+        <receiver
+            android:name=".gcm.GcmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.grameenphone.mars"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".gcm.GcmIntentService"/>
+        <activity
+            android:name=".activity.EditGroupActivity"
+            android:parentActivityName=".activity.GroupChatListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.GroupChatListActivity" />
+        </activity>
+        <activity
+            android:name=".activity.CongratulationsActivity"
+            android:label="@string/title_activity_congratulations"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ProfileEditActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="" />
+        <activity
+            android:name=".activity.ProfileUpdateActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="" />
+        <activity android:name=".utility.ImageDialog"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label=""/>
+        <activity
+            android:name=".activity.AddNewMemberToGroupActivity"
+            android:parentActivityName=".activity.GroupChatListActivity"
+            android:label="নতুন মেম্বার অ্যাড করুন"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.GroupChatListActivity" />
+        </activity>
+        <activity android:name=".activity.HelpAboutActivity" />
+
+        <activity
+            android:name=".activity.UserProfileActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.UserProfileChatActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NotificationSettingsActivity" />
+        <activity android:name=".activity.PrivacySettingsActivity" />
+        <activity
+            android:name=".activity.CallScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.IncomingCallScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.DetailsHelpLegalActivity" />
+        <activity
+            android:name=".activity.MarsLiveActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.NewGroupDetailsActivity"
+            android:label="@string/group_add"
+            android:parentActivityName=".activity.GroupAddActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.GroupAddActivity" />
+        </activity>
+
+        <activity android:name=".activity.GroupChatActivity"
+            android:parentActivityName=".activity.GroupChatListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.GroupChatListActivity" />
+        </activity>
+        <activity android:name=".activity.GroupNameAndPhotoUpdateActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="" />
+
+
+
+
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

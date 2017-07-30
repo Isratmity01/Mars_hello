@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.grameenphone.mars.activity.NotificationSettingsActivity">
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#edf0f6" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/lang_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:srcCompat="@drawable/ic_notifications_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lang_icon"
+            android:text="নোটিফিকেশন"
+            android:textColor="#8190a7"
+            android:layout_marginTop="2dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/notification_text" />
+
+        <Switch
+            android:id="@+id/notification_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/notification_text"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#edf0f6" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/sound_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:srcCompat="@drawable/ic_volume_down_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sound_icon"
+            android:text="সাউন্ড"
+            android:textColor="#8190a7"
+            android:layout_marginTop="3dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/sound_text" />
+
+        <Switch
+            android:id="@+id/sound_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sound_text"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#edf0f6" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/vibration_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:srcCompat="@drawable/ic_vibration_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/vibration_icon"
+            android:text="ভাইব্রেশন"
+            android:textColor="#8190a7"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/vibration_text" />
+
+        <Switch
+            android:id="@+id/vibration_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/vibration_text"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#edf0f6" />
+</LinearLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    tools:context="com.grameenphone.mars.activity.HelpAboutActivity">
+
+    <View
+        android:id="@+id/border1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/terms_card"
+        android:layout_below="@+id/border1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/terms_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                app:srcCompat="@drawable/ic_error_black_24dp" />
+
+            <TextView
+                android:id="@+id/lable_terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/terms_icon"
+                android:fontFamily="sans-serif"
+                android:text="টার্মস"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <View
+        android:id="@+id/border2"
+        android:layout_below="@+id/terms_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/privacy_policy_card"
+        android:layout_below="@+id/border2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/privacy_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                app:srcCompat="@drawable/ic_security_black_24dp" />
+
+            <TextView
+                android:id="@+id/lable_privacy_policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/privacy_icon"
+                android:fontFamily="sans-serif"
+                android:text="প্রাইভেসি পলিসি"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <View
+
+        android:id="@+id/border3"
+        android:layout_below="@+id/privacy_policy_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/question_card"
+        android:layout_below="@+id/border3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/question_icon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                app:srcCompat="@drawable/ic_live_help_black_24dp" />
+
+            <TextView
+                android:id="@+id/lable_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/question_icon"
+                android:fontFamily="sans-serif"
+                android:text="প্রশ্ন"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <View
+        android:id="@+id/border4"
+        android:layout_below="@+id/question_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/license_card"
+        android:layout_below="@+id/border4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/license_icon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="18dp"
+                app:srcCompat="@drawable/ic_license"
+                android:layout_alignBottom="@+id/lable_license"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/lable_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/license_icon"
+                android:fontFamily="sans-serif"
+                android:text="লাইসেন্স"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <View
+        android:id="@+id/border5"
+        android:layout_below="@+id/license_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/legal_card"
+        android:layout_below="@+id/border5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/legal_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                app:srcCompat="@drawable/ic_legal" />
+
+            <TextView
+                android:id="@+id/lable_legal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/legal_icon"
+                android:fontFamily="sans-serif"
+                android:text="লিগ্যাল"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <View
+        android:id="@+id/border6"
+        android:layout_below="@+id/legal_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/help_about_card"
+        android:layout_below="@+id/border6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/version_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                app:srcCompat="@drawable/ic_android_black_24dp" />
+
+            <TextView
+                android:id="@+id/lable_help_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/version_icon"
+                android:fontFamily="sans-serif"
+                android:text="ভার্শন"
+                android:textColor="#8190a7"
+                android:textSize="17sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/version_icon"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
+                android:textColor="#8190a7"
+                android:textSize="14sp"
+                android:text="@string/app_version" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <View
+        android:id="@+id/border7"
+        android:layout_below="@+id/help_about_card"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color"/>
+
+
+</RelativeLayout>

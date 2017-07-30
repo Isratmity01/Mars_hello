@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/tools"
+    android:id="@+id/message_holder_receiver"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:weightSum="10">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/receiversImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/ic_user_pic_02"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_toEndOf="@+id/receiversImage"
+                android:layout_toRightOf="@+id/receiversImage">
+
+                <github.ankushsachdeva.emojicon.EmojiconTextView
+                    android:id="@+id/receiversMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/shape_chat_bubble"
+                    android:gravity="start"
+                    android:text=" এই যে চলছে বেশ ভালোই। শোন, আমার টাকা পয়সা বেশী হয়ে গেছে, বুঝলি? চল তোরে ট্রিট দেই! কই খাইতে চাস? বার্গার কিং? "
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="7pt"
+                    android:maxWidth="195dp"
+                    android:textIsSelectable="true"
+                    emojicon:emojiconSize="10pt" />
+
+                <TextView
+                    android:id="@+id/receiversmsgName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="11:57pm"
+                    android:textSize="5pt"
+                    android:textColor="@color/time_stamp"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/receiversMessage"
+                    android:layout_toEndOf="@+id/receiversMessage" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

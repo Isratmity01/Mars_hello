@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/callback_2"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:layout_height="match_parent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/friendImageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_user_pic_02"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="#00fafafa"
+
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/remoteUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="14dp"
+            android:text="Sample user"
+            android:textColor="@color/colorPrimary"
+            android:textSize="32sp"/>
+
+        <TextView
+            android:id="@+id/callState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="কল আসছে..."
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottompanel2"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:layout_above="@+id/bottomtext"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/declineButton"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginRight="82dp"
+            android:background="@drawable/ic_decline_call"
+          />
+
+        <Button
+            android:id="@+id/answerButton"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_toRightOf="@id/declineButton"
+            android:background="@drawable/ic_receive_call" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:id="@+id/bottomtext"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="51dp"
+        android:textSize="14sp"
+        android:text=""
+
+        android:layout_alignParentBottom="true"
+       />
+        </RelativeLayout>
+</RelativeLayout>

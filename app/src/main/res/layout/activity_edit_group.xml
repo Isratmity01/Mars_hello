@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    tools:context="com.grameenphone.mars.activity.EditGroupActivity">
+
+
+    <View
+        android:id="@+id/border13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color" />
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activity.UserProfileActivity">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/group_image_view"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/hello1" />
+
+        <TextView
+            android:id="@+id/group_name_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/group_image_view"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:hint="গ্রুপের নাম"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/add_new_member"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/group_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp">
+
+            <View
+                android:id="@+id/border1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/groupChatImageView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/ic_add_member" />
+
+
+                <TextView
+                    android:id="@+id/group_chat"
+                    android:text="মেম্বার অ্যাড করুন"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:id="@+id/border2"
+            android:layout_below="@+id/add_new_member"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/border_color" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_admin"
+            android:layout_below="@+id/border2"
+            android:layout_marginBottom="56dp"
+            android:layout_marginTop="5dp"
+           />
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/leave_group"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp">
+
+            <View
+                android:id="@+id/border3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/leave_group_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:tint="@color/text_red"
+                    app:srcCompat="@drawable/ic_leave_group" />
+
+
+                <TextView
+                    android:id="@+id/leave_group_text"
+                    android:text="লিভ গ্রুপ"
+                    android:textColor="@color/text_red"
+                    android:textSize="16sp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

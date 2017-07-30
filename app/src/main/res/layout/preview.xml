@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top|center"
+    app:srcCompat="@drawable/key_preview_background"
+    android:textStyle="bold"
+    android:textSize="30sp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+

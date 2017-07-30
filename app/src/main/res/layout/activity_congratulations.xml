@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/text_white"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBarCongratulation"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="136dp"/>
+
+    <TextView
+        android:id="@+id/greet"
+        android:textSize="32sp"
+        android:textColor="#26beff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="কনগ্রাচুলেশন!"
+        android:layout_marginTop="120dp"
+        android:layout_alignTop="@+id/success_icon"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/verification_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/greet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="ভেরিফিকেশন সাকসেসফুল হয়েছে"
+        android:textColor="#8190a7"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/success_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/successful"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#26beff"
+        android:gravity="center_horizontal"
+        android:text="মার্সে আপনাকে স্বাগতম"
+        android:id="@+id/greet2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="220dp" />
+
+    <Button
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        app:srcCompat="@drawable/profile_button_shape"
+        android:text="প্রোফাইল ক্রিয়েট করুন"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp" />
+
+
+</RelativeLayout>

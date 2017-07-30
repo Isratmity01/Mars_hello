@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:weightSum="10">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/receiversImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+
+                app:srcCompat="@drawable/ic_account_circle_black_36dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:layout_toEndOf="@+id/receiversImage"
+                android:layout_toRightOf="@+id/receiversImage">
+
+                <ImageView
+                    android:id="@+id/receivers_image_view"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="@drawable/shape_chat_bubble"
+                    android:visibility="gone" />
+
+                <hani.momanii.supernova_emoji_library.Helper.EmojiconTextView
+                    android:id="@+id/receiversMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/shape_chat_bubble"
+                    android:gravity="left"
+                    android:text=" এই যে চলছে বেশ ar ki cai amar"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="7pt"
+                    app:emojiconSize="28sp" />
+
+                <TextView
+                    android:id="@+id/receiversName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="11:57pm"
+
+                    android:textColor="@color/time_stamp"
+                    android:textSize="5pt"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/receiversMessage"
+                    android:layout_toEndOf="@+id/receiversMessage" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/senders_image_view"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/shape_chat_bubble"
+                android:backgroundTint="@color/sender_chat_bubble"
+                android:visibility="gone"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+            <TextView
+                android:id="@+id/senderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:57 pm"
+                android:textSize="5pt"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/sendersMessage"
+                android:layout_toStartOf="@+id/sendersMessage" />
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconTextView
+                android:id="@+id/sendersMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/shape_chat_bubble"
+                android:backgroundTint="@color/sender_chat_bubble"
+                android:text="This is new message, long long"
+                android:textColor="@color/text_white"
+                android:textSize="7pt"
+                app:emojiconSize="28sp"
+                android:layout_below="@+id/senders_image_view"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/system_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="nabila noor added by Mohiudidn Opu"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

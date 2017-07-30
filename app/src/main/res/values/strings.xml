@@ -1,0 +1,119 @@
+<resources>
+
+    <string name="welcome_msg" translatable="false">Welcome!</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="contacts_permission_rationale" translatable="false">Access to account information is required to sign in.</string>
+    <string name="invite_menu_label" translatable="false">Invite</string>
+    <string name="invitation_message" translatable="false">Please join me for a friendly chat</string>
+    <string name="invitation_cta" translatable="false">Call to action</string>
+    <string name="invitation_title" translatable="false">Friendly Chat Invite</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up" translatable="false">Sign Up</string>
+    <string name="fresh_config" translatable="false">Fresh Config</string>
+    <string name="cause_crash" translatable="false">Cause Crash</string>
+    <string name="app_name" translatable="false">Hello</string>
+
+    <string name="splash_screen_description">Mars Splash</string>
+
+    <string name="app_name_bn">হ্যালো</string>
+    <string name="sign_in_bn">সাইন ইন করুন</string>
+    <string name="sign_out_bn">সাইন আউট</string>
+    <string name="new_message_bn">নতুন ম্যাসেজ </string>
+    <string name="send_bn">ডাক পাঠান</string>
+    <string name="adda">পাবলিক চ্যাট রুম</string>
+    <string name="groups">গ্রুপ চ্যাট</string>
+    <string name="group_add">নতুন গ্রুপ</string>
+
+    <string name="group_info_bn">গ্রুপ ইনফো</string>
+
+    <string name="make_admin">অ্যাডমিন বানান</string>
+    <string name="remove_member">মেম্বার বাতিল করুন</string>
+    <string name="remove_admin"> অ্যাডমিন বাতিল করুন</string>
+
+    <string name="select_picture_title">Get Photo From</string>
+
+
+    <string name="start_phone_auth">Start</string>
+    <string name="verify_phone_auth">Verify</string>
+    <string name="resend_phone_auth">Resend</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_verification_code">Verification Code</string>
+    <string name="phone_title_text">Phone Number</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="signed_in">Signed In</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+
+    <string name="label_phone_auth">Phone Number Authentication</string>
+    <string name="desc_phone_auth">Use a phone number to authenticate with Firebase.</string>
+
+    <string name="status_code_sent">Code Sent</string>
+    <string name="status_verification_failed">Verification failed</string>
+    <string name="status_verification_succeeded">Verification succeeded</string>
+    <string name="status_sign_in_failed">Sign-in failed</string>
+    <string name="instant_validation">(instant validation)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+
+
+    <string name="phone_submit_button">শুরু করুন</string>
+    <string name="bd_country_code">+880</string>
+    <string name="title_activity_congratulations">CongratulationsActivity</string>
+    <string name="phone_number_field">মোবাইল নম্বর লিখুন</string>
+
+
+    <string name="text_message_tag">ম্যাসেজ</string>
+    <string name="text_call_tag">কল</string>
+    <string name="text_live_tag">লাইভ</string>
+    <string name="text_settings_tag">সেটিংস</string>
+    <string name="jump_to_latest"> নিচে যান </string>
+    <string name="hint_write_message">কিছু লিখুন …</string>
+    <string name="emoticon_description">emoticon</string>
+    <string name="mars_live">লাইভ</string>
+    <string name="time_placeholder">১৫ মিনিট আগে</string>
+    <string name="message_placeholder">এই যে চলছে বেশ ভালোই। শোন,</string>
+    <string name="help_placeholder">সামহোয়্যার ইন... হাতে গোণা কয়েকটা সাইট এর মধ্যে একটি যা প্রতিটি ব্লগারকে প্রথম পাতায় লেখা প্রকাশের সুযোগ দেয়। কিন্তু আমরা লক্ষ্য করেছি কিছু ব্লগার এই সুযোগের অপব্যবহার শুরু করেছেন। যদিও এখন থেকে আমরা সুনির্দিষ্ট নীতিমালা ভঙ্গ না করলে কোন পোস্ট মুছে না ফেলার সিদ্ধান্ত নিয়েছি। কিন্তু আমরা সকল শ্রেণীর ব্লগারদের কাছে প্রথম পাতার পরিচ্ছন্নতা, বৈচিত্র ও আকর্ষণ রক্ষার্থে এর উপর আরো নিয়ন্ত্রন প্রতিষ্ঠার সিদ্ধান্ত নিয়েছি।</string>
+    <string name="help_and_about_description">help and about</string>
+    <string name="app_version">Ver 0.2</string>
+    <string name="new_group">নতুন গ্রুপ ম্যাসেজ</string>
+    <string name="action_next">নতুন গ্রুপ</string>
+    <string name="group_name">গ্রুপের নাম</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="mars_ime">হ্যালো কিবোর্ড</string>
+
+
+    <string name="bn_us">বাংলা &amp; English</string>
+    <!-- Title for Latin keyboard  -->
+    <string name="ime_name">Sample Soft Keyboard</string>
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|&quot;</string>
+    <string name="one_two_three">\?123</string>
+
+    <!-- Labels on soft keys -->
+    <string name="label_go_key">Go</string>
+    <string name="label_next_key">Next</string>
+    <string name="label_send_key">Send</string>
+    <!-- Labels for subtype -->
+    <string name="label_subtype_generic">%s</string>
+    <!-- Titles for ImePreference -->
+    <string name="settings_name">Sample Soft Keyboard Settings</string>
+    <string name="language_selection_title">Input languages</string>
+    <string name="select_language">Select input languages</string>
+    <string name="general_category">General</string>
+    <string name="consent">আমি এই অ্যাপ এর টার্মস এন্ড কন্ডিশন এ সম্মতি দিচ্ছি</string>
+    <string name="show_off">একশ% ♥ দিয়ে বানানো দেশী অ্যাপ</string>
+
+</resources>

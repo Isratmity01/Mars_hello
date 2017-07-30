@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#26BEFF</color>
+    <color name="colorAccent">#26BEFF</color>
+    <color name="semitransparent">#2e000000</color>
+    <color name="disabled">#8190a7</color>
+    <color name="pressed">#515C85</color>
+    <color name="colorPrimaryRipple">#423F51B5</color>
+    <color name="sender_chat_bubble">#26BEFF</color>
+    <color name="receiver_chat_bubble">#FFFFFF</color>
+
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_black">#303b4b</color>
+    <color name="text_gray">#8190a7</color>
+    <color name="text_red">#ff4949</color>
+    <color name="icons">#AEC3E3</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
+
+    <color name="unseen_message_color">#303b4b</color>
+    <color name="seen_message_color">#8190a7</color>
+
+
+    <color name="border_color">#42aec3e3</color>
+    <color name="chat_screen_background">#D4DDE2</color>
+
+    <color name="time_stamp">#8190a7</color>
+
+
+    <color name="bottom_nav_unchecked">#8597B2</color>
+
+    <color name="hint_text_color">#e1edff</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <color name="candidate_normal">#8190a7</color>
+    <color name="candidate_recommended">#8190a7</color>
+    <color name="candidate_other">#8190a7</color>
+
+    <color name="candidate_background">#edf0f6</color>
+    <color name="keyboard_background">#FFFFFF</color>
+    <color name="keyboard_key">#4c5460</color>
+    <color name="keyboard_number_with_character">#455a64</color>
+
+
+
+
+
+</resources>

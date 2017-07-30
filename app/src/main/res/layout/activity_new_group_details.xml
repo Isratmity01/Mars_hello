@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    tools:context="com.grameenphone.mars.activity.GroupAddActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/group_pic"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="44dp"
+            app:srcCompat="@drawable/user_pic"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <EditText
+            android:id="@+id/name_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:maxLines="2"
+            app:srcCompat="@drawable/edt_bg_selector"
+            android:inputType="textPersonName"
+            android:hint="@string/group_name"
+            android:textColorHint="#aec3e3"
+            android:layout_below="@+id/group_pic"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingRight="20dp"
+            android:paddingEnd="20dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/viewlower"
+            android:layout_below="@+id/name_field"
+            android:layout_marginTop="60dp"
+            android:background="@color/border_color">
+
+        </View>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedFriend"
+            android:layout_alignParentBottom="true"
+
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/viewlower"
+            android:layout_alignParentStart="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

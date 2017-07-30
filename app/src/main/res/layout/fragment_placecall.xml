@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.Fragment_PlaceCall">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/listholder"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/allusers"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+
+
+    </LinearLayout>
+</FrameLayout>

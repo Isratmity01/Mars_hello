@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/text_white"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:gravity="top"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ffffff"
+        app:titleTextColor="@color/colorPrimaryDark"
+
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <ImageButton
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:id="@+id/back"
+            app:srcCompat="@drawable/ic_backicon"
+android:visibility="gone"
+            android:paddingRight="5dp"
+            android:layout_gravity="center|left"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="22dp" />
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bartitle"
+            android:textSize="18sp"
+            android:text="প্রোফাইল"
+            android:textColor="#8190a7"
+            android:layout_marginEnd="22dp"
+            android:layout_gravity="left"
+
+            android:layout_marginRight="22dp" />
+
+    </android.support.v7.widget.Toolbar>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_pic"
+        android:layout_below="@id/toolbar"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="20dp"
+
+
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:layout_below="@+id/user_pic"
+        android:id="@+id/name_field_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#8190a7"
+        android:text="আপনার নাম লিখুন" />
+
+    <EditText
+        android:id="@+id/name_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/name_field_title"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/profile_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/profile_button_shape"
+        android:text="  শেষ"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/name_field"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_message"
+        android:enabled="true"
+        android:icon="@drawable/ic_msg"
+        android:title="@string/text_message_tag"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_call"
+        android:enabled="true"
+        android:icon="@drawable/ic_call"
+        android:title="@string/text_call_tag"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_live"
+        android:enabled="true"
+        android:icon="@drawable/ic_live"
+        android:title="@string/text_live_tag"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_more"
+        android:title="@string/text_settings_tag"
+        app:showAsAction="ifRoom" />
+</menu>

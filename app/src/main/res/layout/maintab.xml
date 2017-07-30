@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tabbar_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#ffffff"
+            app:titleTextColor="@color/disabled"
+        
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/newcall"
+
+            android:layout_marginEnd="22dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="22dp" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="#aec3e3"
+            app:tabIndicatorHeight="4dp"
+            app:tabSelectedTextColor="@color/seen_message_color"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+    </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/tabbar_call"
+            android:id="@+id/fragmentholder"
+            android:paddingBottom="10dp"
+            android:visibility="gone"
+            android:layout_marginBottom="50dp"
+            android:layout_height="match_parent"></FrameLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_below="@+id/tabbar_call"
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+
+    <View
+        android:layout_above="@+id/bottom_navigation_call"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_color" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation_call"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@color/bottom_nav"
+            app:itemTextColor="@color/bottom_nav"
+            app:menu="@menu/bottom_navigation_main" />
+
+
+
+
+
+
+
+
+</RelativeLayout>

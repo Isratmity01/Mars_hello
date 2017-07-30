@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white"
+    tools:context="com.grameenphone.mars.activity.MarsLiveActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ffffff"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        app:titleTextColor="@color/colorPrimaryDark">
+
+        <ImageButton
+            android:id="@+id/marslivelogo"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+
+            android:background="@drawable/hellolive" />
+
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+       android:id="@+id/topview"
+        android:layout_below="@id/toolbar"
+        android:background="@color/border_color"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:fadeScrollbars="false"
+        android:layout_below="@id/topview"
+        android:id="@+id/horizontallayoutholder"
+        android:orientation="horizontal"
+
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/horizontallayoutholder"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/msgedittextborder"
+       >
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="57dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mars_live_chat_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom="58dp">
+
+            <Button
+                android:id="@+id/jump_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/shape_jump_to_bottom"
+                android:text="@string/jump_to_latest"
+                android:textAllCaps="false"
+                android:textColor="#FFF" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/borderchatarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border_color" />
+
+
+                <RelativeLayout
+                    android:id="@+id/msgedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/borderchatarea"
+
+
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin">
+
+
+                    <ImageView
+                        android:id="@+id/emoticon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="12dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/emoji" />
+
+                    <github.ankushsachdeva.emojicon.EmojiconEditText
+                        android:id="@+id/messageEditText"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toEndOf="@+id/emoticon"
+                        android:layout_toRightOf="@+id/emoticon"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/hint_write_message"
+                        android:maxWidth="240dp"
+                        android:textColorHint="#AEC3E3"
+                        ads:emojiconSize="28sp" />
+
+
+                    <ImageView
+                        android:id="@+id/send_button"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_send_button" />
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <View
+        android:id="@+id/msgedittextborder"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="54dp"
+        android:background="@color/border_color" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        ads:itemBackground="@color/colorPrimary"
+        ads:itemIconTint="@color/bottom_nav"
+        ads:itemTextColor="@color/bottom_nav"
+        ads:menu="@menu/bottom_navigation_main" />
+
+
+</RelativeLayout>

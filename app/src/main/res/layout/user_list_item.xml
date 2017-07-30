@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:id="@+id/parent"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/person_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+
+                app:srcCompat="@drawable/ic_user_pic_02" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/f"
+                android:layout_toRightOf="@id/person_photo"
+                android:layout_toEndOf="@id/person_photo"
+                android:weightSum="3"
+                android:layout_marginTop="5dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="180sp"
+                    android:layout_weight="2"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginStart="14dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:id="@+id/person_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:maxWidth="180sp"
+                        android:layout_toRightOf="@id/person_photo"
+                        android:text="Name"
+                        android:textColor="#303b4b"
+                        android:textSize="16sp"
+                        />
+                    <TextView
+                        android:id="@+id/calltype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="hello"
+                        android:textSize="14sp"
+                        android:layout_toRightOf="@id/person_photo"
+                        android:layout_below="@id/person_name"
+
+                        android:textColor="#8190a7" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/person_call"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:layout_gravity="center"
+
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginStart="74dp"
+        android:background="#f1f5f7"
+        />
+</LinearLayout>
