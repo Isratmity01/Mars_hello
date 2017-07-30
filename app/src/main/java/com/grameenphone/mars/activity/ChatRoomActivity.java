@@ -517,11 +517,11 @@ public class ChatRoomActivity extends BaseActivity {
 
 
                             }
-                            if(c.getReceiverUid().equals(me.getUid()))
+                            /*if(c.getReceiverUid().equals(me.getUid()))
                             {
                               c.setReadStatus(1);
                                 dbHelper.addMessage(c,c.getChatId());
-                            }
+                            }*/
                             chatRoomAdapter.notifyDataSetChanged();
                             int lastPosition =
                                     mLinearLayoutManager.getItemCount();

@@ -415,13 +415,13 @@ public class GroupChatActivity extends AppCompatActivity {
                                 }
 
                             }
-                            if(c.getReceiverUid().equals(me.getUid()))
+                           /* if(c.getReceiverUid().equals(me.getUid()))
                             {
                                 c.setReadStatus(1);
 
                             dbHelper.addMessage(MESSAGES_CHILD ,c, c.getChatId(), 1);
 
-                            }
+                            }*/
                             chatRoomAdapter.notifyDataSetChanged();
                             int lastPosition =
                                     mLinearLayoutManager.getItemCount();
