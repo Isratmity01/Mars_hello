@@ -107,11 +107,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
                 if (!ApplicationChat.isChatActivityOpen()) {
-                    EventBus.getDefault().post(new PushNotificationEvent(title,
-                            message,
-                            sender,
-                            fcmToken,
-                            roomid));
+
                     sendNotification(title,
                             message,
                             sender,
@@ -167,7 +163,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         Intent intent;
-
+        EventBus.getDefault().post(new PushNotificationEvent(title,
+                message,
+                sender,
+                firebaseToken,
+                roomuid));
         if(!title.equals(sender)){
             message = sender + " : " + message;
             intent = new Intent(this, GroupChatActivity.class);

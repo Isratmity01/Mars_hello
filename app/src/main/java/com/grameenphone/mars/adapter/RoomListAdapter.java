@@ -96,26 +96,35 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
             if(!lastMessage.getSenderUid().equals(me.getUid())){
-                itemHolder.deliveryStatus.setVisibility(View.INVISIBLE);
-
-                if(current.getUnreadMessageCount() != null && !current.getUnreadMessageCount().equals("0")){
-                    itemHolder.unReadMessageCount.setText( current.getUnreadMessageCount() );
-                    itemHolder.unReadMessageCount.setVisibility(View.VISIBLE);
-
-
-                    itemHolder.message.setTextColor(context.getResources().getColor(R.color.unseen_message_color));
-                    itemHolder.nameTextView.setTextColor(context.getResources().getColor(R.color.unseen_message_color));
-
-                    itemHolder.message.setTypeface(Typeface.DEFAULT_BOLD);
-                    itemHolder.nameTextView.setTypeface(Typeface.DEFAULT_BOLD);
-
-                } else {
+                if(lastMessage.getReadStatus()==1)
+                {
+                    itemHolder.deliveryStatus.setVisibility(View.VISIBLE);
+                    itemHolder.deliveryStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.seen_status));
                     itemHolder.unReadMessageCount.setVisibility(View.INVISIBLE);
                     itemHolder.message.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                     itemHolder.nameTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 }
+                else {
+                    itemHolder.deliveryStatus.setVisibility(View.INVISIBLE);
+
+                    if (current.getUnreadMessageCount() != null && !current.getUnreadMessageCount().equals("0")) {
+                        itemHolder.unReadMessageCount.setText(current.getUnreadMessageCount());
+                        itemHolder.unReadMessageCount.setVisibility(View.VISIBLE);
 
 
+                        itemHolder.message.setTextColor(context.getResources().getColor(R.color.unseen_message_color));
+                        itemHolder.nameTextView.setTextColor(context.getResources().getColor(R.color.unseen_message_color));
+
+                        itemHolder.message.setTypeface(Typeface.DEFAULT_BOLD);
+                        itemHolder.nameTextView.setTypeface(Typeface.DEFAULT_BOLD);
+
+                    } else {
+                        itemHolder.unReadMessageCount.setVisibility(View.INVISIBLE);
+                        itemHolder.message.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        itemHolder.nameTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    }
+
+                }
 
             } else {
                 if(lastMessage.getReadStatus()==0){

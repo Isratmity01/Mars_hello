@@ -46,6 +46,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.grameenphone.mars.ApplicationChat;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.adapter.GroupChatRoomAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
@@ -426,6 +427,16 @@ public class GroupChatActivity extends AppCompatActivity {
                             int lastPosition =
                                     mLinearLayoutManager.getItemCount();
                             mMessageRecyclerView.scrollToPosition(lastPosition - 1);
+                            Chat chaat= chats.get(chats.size()-1);
+                            if(chaat.getMessageType()=="system")
+                            {
+
+                            }
+                            else if(!chaat.getSenderUid().equals(me.getUid()))
+                            {
+                                chaat.setReadStatus(1);
+                                dbHelper.addMessage(MESSAGES_CHILD ,chaat, chaat.getChatId(), chaat.getReadStatus());
+                            }
                         }
 
 
@@ -719,7 +730,7 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        ApplicationChat.setChatActivityOpen(true);
         dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 0);
 
 
@@ -728,7 +739,7 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+        ApplicationChat.setChatActivityOpen(false);
         dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 1);
 
 

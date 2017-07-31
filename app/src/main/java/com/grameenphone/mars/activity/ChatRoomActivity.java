@@ -526,6 +526,13 @@ public class ChatRoomActivity extends BaseActivity {
                             int lastPosition =
                                     mLinearLayoutManager.getItemCount();
                             mMessageRecyclerView.scrollToPosition(lastPosition - 1);
+                            Chat chaat= chats.get(chats.size()-1);
+                            if(chaat.getReceiverUid().equals(me.getUid()))
+                            {
+                                chaat.setReadStatus(1);
+                                dbHelper.addMessage(chaat,chaat.getChatId());
+                            }
+
                         }
 
 
@@ -548,7 +555,6 @@ public class ChatRoomActivity extends BaseActivity {
 
                                     if(data.getReadStatus() != c.getReadStatus()){
                                         data.setReadStatus(c.getReadStatus());
-
                                         chatRoomAdapter.notifyDataSetChanged();
                                         int lastPosition =
                                                 mLinearLayoutManager.getItemCount();
@@ -589,7 +595,6 @@ public class ChatRoomActivity extends BaseActivity {
 
                     }
                 });
-
 
         mMessageRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
