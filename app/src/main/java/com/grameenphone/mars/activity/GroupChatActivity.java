@@ -456,6 +456,13 @@ public class GroupChatActivity extends AppCompatActivity {
                                     if (data.getChatId().equals(c.getChatId())) {
                                         addFlag = false;
                                     }
+                                    if(data.getReadStatus() != c.getReadStatus()){
+                                        data.setReadStatus(c.getReadStatus());
+                                        chatRoomAdapter.notifyDataSetChanged();
+                                        int lastPosition =
+                                                mLinearLayoutManager.getItemCount();
+                                        mMessageRecyclerView.scrollToPosition(lastPosition - 1);
+                                    }
                                 }
 
                                 if (addFlag) {
