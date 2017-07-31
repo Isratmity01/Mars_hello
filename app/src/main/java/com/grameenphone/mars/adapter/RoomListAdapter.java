@@ -98,6 +98,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if(!lastMessage.getSenderUid().equals(me.getUid())){
                 if(lastMessage.getReadStatus()==1)
                 {
+                    current.setUnreadMessageCount("0");
                     itemHolder.deliveryStatus.setVisibility(View.VISIBLE);
                     itemHolder.deliveryStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.seen_status));
                     itemHolder.unReadMessageCount.setVisibility(View.INVISIBLE);
@@ -109,7 +110,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     if (current.getUnreadMessageCount() != null && !current.getUnreadMessageCount().equals("0")) {
                         itemHolder.unReadMessageCount.setText(current.getUnreadMessageCount());
-                        itemHolder.unReadMessageCount.setVisibility(View.VISIBLE);
+                        itemHolder.unReadMessageCount.setVisibility(View.INVISIBLE);
 
 
                         itemHolder.message.setTextColor(context.getResources().getColor(R.color.unseen_message_color));

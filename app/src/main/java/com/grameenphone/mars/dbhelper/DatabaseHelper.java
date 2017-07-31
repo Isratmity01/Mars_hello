@@ -620,7 +620,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +Constant.Database.Chatroom.MSG_TYPE + " != ? AND "
                 +Constant.Database.Chatroom.READ_STATUS+" = ? ";
 
-        String[] selectionArgs = new String[] {chatRoomID,senderUid, "system","0"};
+        String[] selectionArgs = new String[] {chatRoomID,senderUid, "system","1"};
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(Constant.Database.TABLE_CHAT_ROOMS, null,  selection, selectionArgs, null,  null, null, null);

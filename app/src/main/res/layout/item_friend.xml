@@ -40,8 +40,9 @@
                 android:layout_height="20sp"
                  android:layout_alignEnd="@+id/friendImageView"
                 android:layout_alignRight="@+id/friendImageView"
-                app:srcCompat="@drawable/profile_bubble"
+                android:background="@drawable/profile_bubble"
                 android:text="100"
+                android:visibility="gone"
                 android:textAlignment="center"
                 android:textColor="@color/text_white"
                 android:textSize="5pt" />

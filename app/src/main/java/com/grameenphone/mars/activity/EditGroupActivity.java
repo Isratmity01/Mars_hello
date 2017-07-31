@@ -1,9 +1,11 @@
 package com.grameenphone.mars.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
@@ -158,9 +160,37 @@ public class EditGroupActivity extends AppCompatActivity {
                 if (group.getOwner().equals(me.getUid())) {
                     leaveGroupText.setText("ডিলিট গ্রুপ");
                     leaveGroupIcon.setImageDrawable( getResources().getDrawable(R.drawable.ic_leave_group));
-                    leaveGroup.setOnClickListener(deleteListener);
+                    leaveGroup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(EditGroupActivity.this);
+                            alert.setTitle("");
+                            alert.setMessage("সরি, এই ফিচারটি এখনো অ্যাভেইলেবল না");
+                            alert.setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+
+                            alert.show();
+                        }
+                    });
                 } else {
-                    leaveGroup.setOnClickListener(leaveListener);
+                    leaveGroup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(EditGroupActivity.this);
+                            alert.setTitle("");
+                            alert.setMessage("সরি, এই ফিচারটি এখনো অ্যাভেইলেবল না");
+                            alert.setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+
+                            alert.show();
+                        }
+                    });
                 }
 
                 editGroupName.setText(group.getName());
