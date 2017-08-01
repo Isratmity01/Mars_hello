@@ -582,7 +582,34 @@ public class GroupChatActivity extends AppCompatActivity {
 
             }
         });
+        emojiconEditText.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                //If popup is not showing => emoji keyboard is not visible, we need to show it
+                if (popup.isShowing()) {
+                    popup.dismiss();
+                    //   popup.showAtBottom();
+                    changeEmojiKeyboardIcon(emojiButton, R.drawable.emoji);
+                    //If keyboard is visible, simply show the emoji popup
+                  /*  if (popup.isKeyBoardOpen()) {
+                        popup.showAtBottom();
+                        changeEmojiKeyboardIcon(emojiButton, R.drawable.ic_keyboard);
+                    }
+
+                    //else, open the text keyboard first and immediately after that show the emoji popup
+                    else {
+
+                    }*/
+                }
+
+                //If popup is showing, simply dismiss it to show the undelying text keyboard
+                else {
+                    popup.dismiss();
+                }
+            }
+        });
 
         mSendButton = (ImageView) findViewById(R.id.send_button);
         mSendButton.setEnabled(false);

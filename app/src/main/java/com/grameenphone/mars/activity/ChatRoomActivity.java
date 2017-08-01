@@ -192,6 +192,7 @@ public class ChatRoomActivity extends BaseActivity {
 
         context = ChatRoomActivity.this;
 
+        emojiconEditText = (EmojiconEditText) findViewById(R.id.messageEditText);
 
 
 
@@ -360,7 +361,34 @@ public class ChatRoomActivity extends BaseActivity {
             }
         });
 
+        emojiconEditText.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                //If popup is not showing => emoji keyboard is not visible, we need to show it
+                if (popup.isShowing()) {
+                    popup.dismiss();
+                 //   popup.showAtBottom();
+                    changeEmojiKeyboardIcon(emojiButton, R.drawable.emoji);
+                    //If keyboard is visible, simply show the emoji popup
+                  /*  if (popup.isKeyBoardOpen()) {
+                        popup.showAtBottom();
+                        changeEmojiKeyboardIcon(emojiButton, R.drawable.ic_keyboard);
+                    }
+
+                    //else, open the text keyboard first and immediately after that show the emoji popup
+                    else {
+
+                    }*/
+                }
+
+                //If popup is showing, simply dismiss it to show the undelying text keyboard
+                else {
+                    popup.dismiss();
+                }
+            }
+        });
         attachment = (ImageView) findViewById(R.id.attachment);
         attachment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -652,7 +680,6 @@ public class ChatRoomActivity extends BaseActivity {
         });
 
 
-        emojiconEditText = (EmojiconEditText) findViewById(R.id.messageEditText);
         emojiconEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -683,6 +710,7 @@ public class ChatRoomActivity extends BaseActivity {
 
             }
         });
+
 
 
         mSendButton = (ImageView) findViewById(R.id.send_button);
@@ -869,8 +897,13 @@ public class ChatRoomActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-       getSinchServiceInterface().stopClient();
-      unbindService(this);
+        //      getSinchServiceInterface().stopClient();
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
+
+        }
     }
 
     @Override

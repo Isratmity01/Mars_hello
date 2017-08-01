@@ -83,7 +83,7 @@
                 android:id="@+id/jump_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                app:srcCompat="@drawable/shape_jump_to_bottom"
+                android:background="@drawable/shape_jump_to_bottom"
                 android:text="@string/jump_to_latest"
                 android:textAllCaps="false"
                 android:textColor="#FFF" />
