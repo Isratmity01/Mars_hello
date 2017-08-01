@@ -74,7 +74,7 @@
                         android:id="@+id/new_call_fromRecent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        style="?android:attr/borderlessButtonStyle"
                         android:background="@drawable/phone_submit_button_shape"
                         android:text="নতুন কল "
                         android:textColor="@color/colorPrimary"

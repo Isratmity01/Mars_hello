@@ -156,8 +156,9 @@ private Button speakerButton,micButton;
               userImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                         R.drawable.ic_account_circle_black_36dp));
             }
-            if(call.getState().toString().equals("INITIATING"))mCallState.setText("কল করা হচ্ছে...");
-          else  if(call.getState().toString().equals("INITIATING")&&calltype.equals("yes"))mCallState.setText("কানেক্ট হচ্ছে..");
+            if(call.getState().toString().equals("INITIATING")&&calltype.equals("yes"))mCallState.setText("কানেক্ট হচ্ছে..");
+
+           else if(call.getState().toString().equals("INITIATING"))mCallState.setText("কল করা হচ্ছে...");
             else mCallState.setText(call.getState().toString());
         } else {
             Log.e(TAG, "Started with invalid callId, aborting.");
