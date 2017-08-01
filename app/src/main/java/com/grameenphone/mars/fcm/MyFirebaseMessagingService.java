@@ -37,6 +37,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private DatabaseHelper databaseHelper;
     private static final String TAG = "MyFirebaseMsgService";
     EventBus eventBus;
+    String ReceivedRoomId;
+
+    public String getReceivedRoomId() {
+        return ReceivedRoomId;
+    }
+
+    public void setReceivedRoomId(String receivedRoomId) {
+        ReceivedRoomId = receivedRoomId;
+    }
+    int count=1;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     /**
      * Called when message is received.
      *
@@ -51,6 +70,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
+
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
@@ -63,6 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String sender = remoteMessage.getData().get("sender");
                 String fcmToken = remoteMessage.getData().get("fcm_token");
                 String roomid = remoteMessage.getData().get("room_uid");
+                databaseHelper.addUnreadCount(roomid,0);
                 Gson gson = new Gson();
                 Chat staff = gson.fromJson(chats, Chat.class);
                 if(title!=sender)

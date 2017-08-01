@@ -3,6 +3,7 @@ package com.grameenphone.mars.fcm;
 import android.util.Log;
 
 import com.grameenphone.mars.model.Chat;
+import com.sinch.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +46,7 @@ public class FcmNotificationBuilder {
     private static final String KEY_SENDER = "sender";
     private static final String KEY_CHATS ="whatposted";
     private String mTitle;
-    private Chat received;
+    private JSONObject received;
     private String mMessage;
     private String mFirebaseToken;
     private String mReceiverFirebaseToken;
@@ -61,7 +62,7 @@ public class FcmNotificationBuilder {
     }
 
 
-    public FcmNotificationBuilder setReceived(Chat received) {
+    public FcmNotificationBuilder setReceived(JSONObject received) {
         this.received = received;
         return this;
     }
@@ -137,34 +138,10 @@ public class FcmNotificationBuilder {
         jsonObjectData.put(KEY_SENDER, Sender);
         jsonObjectData.put(KEY_FCM_TOKEN, mFirebaseToken);
         jsonObjectData.put(KEY_ROOM, roomUid);
-        JSONObject chat = new JSONObject();
-        chat=populateJsonChat(chat);
-        jsonObjectData.put(KEY_CHATS, chat);
+
+        jsonObjectData.put(KEY_CHATS, received);
         jsonObjectBody.put(KEY_DATA, jsonObjectData);
         return jsonObjectBody;
     }
-    private JSONObject populateJsonChat ( JSONObject chat) throws JSONException
-    {
-        chat.put("chatId", received.getChatId());
-        chat.put("receiver", received.getReceiver());
-        chat.put("receiverUid",received.getReceiverUid());
-        chat.put("sender", received.getSender());
-        chat.put("messageType", received.getMessageType());
-        chat.put("senderUid",received.getSenderUid());
-        chat.put("timestamp", received.getTimestamp());
-        chat.put("photoUrl", received.getPhotoUrl());
-        chat.put("message",received.getMessage());
-        chat.put("readStatus",received.getReadStatus());
 
-        if(received.getFile()!=null)
-
-        {
-            chat.put("type",received.getFile().getType());
-            chat.put("url_file", received.getFile().getUrl_file());
-            chat.put("name_file",received.getFile().getName_file());
-            chat.put("size_file",received.getFile().getSize_file());
-        }
-
-        return chat;
-    }
 }

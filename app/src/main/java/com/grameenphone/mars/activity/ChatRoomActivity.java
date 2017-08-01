@@ -66,8 +66,11 @@ import com.grameenphone.mars.model.User;
 import com.grameenphone.mars.utility.Constant;
 import com.sinch.android.rtc.MissingPermissionException;
 import com.sinch.android.rtc.calling.Call;
+import com.sinch.gson.JsonObject;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -89,7 +92,7 @@ public class ChatRoomActivity extends BaseActivity {
     String firstDate, newDate;
     int timefirst, timesecond;
     int monthfirst, monthsecond;
-
+    JSONObject chatobject = new JSONObject();
     public int getMonthfirst() {
         return monthfirst;
     }
@@ -170,7 +173,7 @@ public class ChatRoomActivity extends BaseActivity {
 
     private BroadcastReceiver statusReceiver;
     private IntentFilter mIntent;
-
+    Chat c;
     private static Context context;
     Calendar calendar;
     Boolean IsSent=false;
@@ -226,6 +229,8 @@ public class ChatRoomActivity extends BaseActivity {
         rootView = (View) findViewById(R.id.root_view);
         calendar = Calendar.getInstance();
         final ImageView emojiButton = (ImageView) findViewById(R.id.emoticon);
+        emojiButton.setImageResource(R.drawable.emoji);
+
         final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
         popup.setBackgroundDrawable(null);
 
@@ -444,7 +449,7 @@ public class ChatRoomActivity extends BaseActivity {
 
                         if (dataSnapshot.hasChildren()) {
 
-                            Chat c = dataSnapshot.getValue(Chat.class);
+                            c= dataSnapshot.getValue(Chat.class);
                             if (c != null) {
                                 c.setChatId(dataSnapshot.getKey());
                                 boolean addFlag = true;
@@ -510,8 +515,30 @@ public class ChatRoomActivity extends BaseActivity {
                                 {   IsSent=false;
                                     dbHelper.addMessage(c,c.getChatId());
                                     c.setReadStatus(0);
-                                    sendPushNotificationToReceiver(c,c.getSender(), c.getMessage(),
+
+                                    try {
+                                        chatobject=populateJsonChat(chatobject);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if(c.getMessageType()=="stk")
+                                    {
+                                        sendPushNotificationToReceiver(chatobject,c.getSender(), "স্টিকার পাঠিয়েছেন",
+                                                c.getSender(), me.getFirebaseToken(), receiverFirebaseToken, MESSAGES_CHILD);
+
+                                    }
+                                    else if(c.getMessageType()=="txt")
+                                    {
+                                        sendPushNotificationToReceiver(chatobject,c.getSender(), "ম্যাসেজ দিয়েছেন",
+                                                c.getSender(), me.getFirebaseToken(), receiverFirebaseToken, MESSAGES_CHILD);
+
+                                    }
+                                    else if (c.getMessageType()=="img")
+                                    {
+                                    sendPushNotificationToReceiver(chatobject,c.getSender(), "ছবি পাঠিয়েছেন",
                                             c.getSender(), me.getFirebaseToken(), receiverFirebaseToken, MESSAGES_CHILD);
+
+                                }
 
                                 }
 
@@ -544,7 +571,7 @@ public class ChatRoomActivity extends BaseActivity {
 
                         if (dataSnapshot.hasChildren()) {
 
-                            Chat c = dataSnapshot.getValue(Chat.class);
+                            c = dataSnapshot.getValue(Chat.class);
                             if (c != null) {
                                 c.setChatId(dataSnapshot.getKey());
                                 boolean addFlag = true;
@@ -839,6 +866,12 @@ public class ChatRoomActivity extends BaseActivity {
         super.onRestart();
         sChatRoomName = receiver.getName();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+       getSinchServiceInterface().stopClient();
+      unbindService(this);
+    }
 
     @Override
     protected void onPause() {
@@ -847,7 +880,10 @@ public class ChatRoomActivity extends BaseActivity {
         sChatRoomName = "";
         dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 1);
 
+
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -957,7 +993,7 @@ public class ChatRoomActivity extends BaseActivity {
     }
 
 
-    private void sendPushNotificationToReceiver(Chat chat, String roomTitle,
+    private void sendPushNotificationToReceiver(JSONObject chat, String roomTitle,
                                                 String message,
                                                 String sender,
                                                 String firebaseToken,
@@ -981,6 +1017,30 @@ public class ChatRoomActivity extends BaseActivity {
 
     public static String getChatRoomName() {
         return sChatRoomName;
+    }
+    private JSONObject populateJsonChat (JSONObject chat) throws JSONException
+    {
+        chat.put("chatId", c.getChatId());
+        chat.put("receiver", c.getReceiver());
+        chat.put("receiverUid",c.getReceiverUid());
+        chat.put("sender", c.getSender());
+        chat.put("messageType", c.getMessageType());
+        chat.put("senderUid",c.getSenderUid());
+        chat.put("timestamp", c.getTimestamp());
+        chat.put("photoUrl", c.getPhotoUrl());
+        chat.put("message",c.getMessage());
+        chat.put("readStatus",c.getReadStatus());
+
+        if(c.getFile()!=null)
+
+        {
+            chat.put("type",c.getFile().getType());
+            chat.put("url_file", c.getFile().getUrl_file());
+            chat.put("name_file",c.getFile().getName_file());
+            chat.put("size_file",c.getFile().getSize_file());
+        }
+
+        return chat;
     }
 
 }

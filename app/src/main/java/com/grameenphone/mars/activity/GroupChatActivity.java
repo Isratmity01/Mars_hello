@@ -57,8 +57,11 @@ import com.grameenphone.mars.model.FileModel;
 import com.grameenphone.mars.model.Group;
 import com.grameenphone.mars.model.User;
 import com.grameenphone.mars.utility.Constant;
+import com.sinch.gson.JsonObject;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -121,7 +124,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private IntentFilter mIntent;
 
     private static Context context;
-
+    Chat c;
 
     private User me;
     private Group group;
@@ -129,6 +132,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private ArrayList<String> members = new ArrayList<String>();
 
 
+    JSONObject chatobject = new JSONObject();
 
 
 
@@ -178,6 +182,7 @@ public class GroupChatActivity extends AppCompatActivity {
         rootView = (View) findViewById(R.id.root_view);
         emojiImageView = (ImageView) findViewById(R.id.emoticon);
         final ImageView emojiButton = (ImageView) findViewById(R.id.emoticon);
+        emojiButton.setImageResource(R.drawable.emoji);
         final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
         popup.setBackgroundDrawable(null);
 
@@ -391,7 +396,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
                         if (dataSnapshot.hasChildren()) {
 
-                            Chat c = dataSnapshot.getValue(Chat.class);
+                             c = dataSnapshot.getValue(Chat.class);
                             c.setChatId(dataSnapshot.getKey());
                             if (c != null) {
                                 c.setChatId(dataSnapshot.getKey());
@@ -409,9 +414,28 @@ public class GroupChatActivity extends AppCompatActivity {
                                 if(IsSent)
                                 {   IsSent=false;
                                     dbHelper.addMessage(MESSAGES_CHILD ,c, c.getChatId(), c.getReadStatus());
+                                    try {
+                                        chatobject=populateJsonChat(chatobject);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     for(String m : members) {
-                                        sendPushNotificationToReceiver( c,roomName, c.getMessage(), c.getSender(),
-                                                me.getFirebaseToken(), m, MESSAGES_CHILD);
+                                        if(c.getMessageType()=="stk")
+                                        {
+                                           sendPushNotificationToReceiver( chatobject,roomName,"স্টিকার পাঠিয়েছেন", c.getSender(),
+                                                    me.getFirebaseToken(), m, MESSAGES_CHILD);
+                                        }
+                                        else if(c.getMessageType()=="txt")
+                                        {
+                                            sendPushNotificationToReceiver( chatobject,roomName, "ম্যাসেজ দিয়েছেন", c.getSender(),
+                                                    me.getFirebaseToken(), m, MESSAGES_CHILD);
+                                        }
+                                        else if (c.getMessageType()=="img")
+                                        {
+                                             sendPushNotificationToReceiver( chatobject,roomName,  "ছবি পাঠিয়েছেন", c.getSender(),
+                                                    me.getFirebaseToken(), m, MESSAGES_CHILD);
+                                        }
+
                                     }
                                 }
 
@@ -448,7 +472,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
                         if (dataSnapshot.hasChildren()) {
 
-                            Chat c = dataSnapshot.getValue(Chat.class);
+                             c = dataSnapshot.getValue(Chat.class);
                             if (c != null) {
                                 c.setChatId(dataSnapshot.getKey());
                                 boolean addFlag = true;
@@ -765,7 +789,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
 
 
-    private void sendPushNotificationToReceiver(Chat chat,String roomTitle,
+    private void sendPushNotificationToReceiver(JSONObject chat, String roomTitle,
                                                 String message,
                                                 String sender,
                                                 String firebaseToken,
@@ -784,6 +808,29 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
 
+    private JSONObject populateJsonChat (JSONObject chat) throws JSONException
+    {
+        chat.put("chatId", c.getChatId());
+        chat.put("receiver", c.getReceiver());
+        chat.put("receiverUid",c.getReceiverUid());
+        chat.put("sender", c.getSender());
+        chat.put("messageType", c.getMessageType());
+        chat.put("senderUid",c.getSenderUid());
+        chat.put("timestamp", c.getTimestamp());
+        chat.put("photoUrl", c.getPhotoUrl());
+        chat.put("message",c.getMessage());
+        chat.put("readStatus",c.getReadStatus());
 
+        if(c.getFile()!=null)
+
+        {
+            chat.put("type",c.getFile().getType());
+            chat.put("url_file", c.getFile().getUrl_file());
+            chat.put("name_file",c.getFile().getName_file());
+            chat.put("size_file",c.getFile().getSize_file());
+        }
+
+        return chat;
+    }
 
 }

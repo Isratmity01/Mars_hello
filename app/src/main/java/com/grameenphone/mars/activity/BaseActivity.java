@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 
 import com.grameenphone.mars.gcm.SinchService;
-import com.grameenphone.mars.gcm.StickyService;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements ServiceConnection {
@@ -20,9 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ServiceC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  Intent it = new Intent(BaseActivity.this, StickyService.class);
 
-        // startService(it);
 
         bindService(new Intent(this, SinchService.class), this,
                 BIND_AUTO_CREATE);
@@ -35,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ServiceC
             onServiceConnected();
         }
     }
-    private boolean isMyServiceRunning2(Class<?> serviceClass) {
+    public boolean isMyServiceRunning2(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {

@@ -132,7 +132,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="12dp"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/emoji" />
+                       />
 
                     <github.ankushsachdeva.emojicon.EmojiconEditText
                         android:id="@+id/messageEditText"

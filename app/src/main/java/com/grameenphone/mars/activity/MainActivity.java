@@ -54,6 +54,7 @@ import com.grameenphone.mars.adapter.RoomListAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.events.PushNotificationEvent;
 import com.grameenphone.mars.model.CallEnded;
+import com.grameenphone.mars.model.Chat;
 import com.grameenphone.mars.model.ChatRoom;
 import com.grameenphone.mars.model.ChatSent;
 import com.grameenphone.mars.model.ChatSent2;
@@ -82,12 +83,31 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private MenuItem searchMenuItem;
     SwipeRefreshLayout mSwipeRefreshLayout;
     android.support.v7.widget.SearchView.OnQueryTextListener listener;
+    String ReceivedRoomId=null;
+    public final int[] counts = new int[10];
+    int countw=0;
+    public String getReceivedRoomId() {
+        return ReceivedRoomId;
+    }
 
+    public void setReceivedRoomId(String receivedRoomId) {
+        ReceivedRoomId = receivedRoomId;
+    }
 
     private static final String TAG = "MainActivity";
     public static final String USERS_CHILD = "users_chat_room";
     public static final String ANONYMOUS = "anonymous";
     private String mUsername;
+    Chat IsitLast=null;
+
+    public Chat getIsitLast() {
+        return IsitLast;
+    }
+
+    public void setIsitLast(Chat isitLast) {
+        IsitLast = isitLast;
+    }
+
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
@@ -478,7 +498,14 @@ EventBus.getDefault().register(this);
     @Override
     public void onStop() {
         super.onStop();
-       EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
+
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
+
+        }
     }
     @Override
     public void onDestroy() {
@@ -566,7 +593,16 @@ EventBus.getDefault().register(this);
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPushNotificationEvent(PushNotificationEvent pushNotificationEvent) {
+        if(getReceivedRoomId()==pushNotificationEvent.getRoomid())
+        {
+
+        }
+        dbHelper.addUnreadCount(pushNotificationEvent.getRoomid(),1);
         chatRooms.clear();
+        if(getReceivedRoomId()==pushNotificationEvent.getRoomid())
+        {
+
+        }
         chatRooms.addAll(populateChatRoomArraylist());
         roomListAdapter.refresh();
     }
@@ -605,9 +641,19 @@ EventBus.getDefault().register(this);
 
         for (ChatRoom cr : cRooms) {
 
-
+            int count=1;
             cr.setLastChat(dbHelper.getLastMsg(cr.getRoomId()));
-            cr.setUnreadMessageCount(dbHelper.getUnreadMsgCount(cr.getRoomId(), me.getUid()));
+            if(cr.getLastChat()==null)
+            {
+                cr.setUnreadMessageCount("0");
+            }
+            else {
+                if(getIsitLast()!=cr.getLastChat())
+                setIsitLast(cr.getLastChat());
+
+                cr.setUnreadMessageCount(String.valueOf(count++));
+            }
+            //cr.setUnreadMessageCount(dbHelper.getUnreadMsgCount(cr.getRoomId(), me.getUid()));
 
 
         }

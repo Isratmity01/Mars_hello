@@ -237,6 +237,13 @@ public class LogActivity extends BaseActivity {
         }
     }
     @Override
+    protected void onStop() {
+        super.onStop();
+  //      getSinchServiceInterface().stopClient();
+        unbindService(this);
+    }
+
+    @Override
     protected void onServiceConnected() {
         String get = null;
         try {

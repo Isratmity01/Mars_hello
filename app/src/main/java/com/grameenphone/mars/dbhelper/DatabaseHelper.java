@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public static final String DB_NAME = "mars";
-    private static final String TAG = "KeyboardDatabaseHelper";
+    private static final String TAG = "DatabaseHelper";
 
     public static String DB_PATH;
     private SQLiteDatabase database;
@@ -144,7 +144,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Constant.Database.CallLog.URL + " VARCHAR "
                 + ")";
 
+        String CREATE_CHATROOM_COUNT = "CREATE TABLE IF NOT EXISTS " + Constant.Database.TABLE_CHATROOM_LOG + "("
+                + Constant.Database.RoomLogCount.ROOM_ID + " VARCHAR ,"
+                + Constant.Database.RoomLogCount.UNREAD + " INTEGER "
 
+                + ")";
 
         try {
             database.execSQL( CREATE_CHAT_ROOMS );
@@ -152,6 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             database.execSQL( CREATE_USERCALLDETAILS );
             database.execSQL( CREATE_ROOM_LIST );
             database.execSQL( CREATE_GROUP_DETAIL );
+            database.execSQL( CREATE_CHATROOM_COUNT );
             database.close();
         } catch (Exception e) {
             Log.e(getClass().getName(), "Error Creating Table");
@@ -239,7 +244,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void addUnreadCount(String RoomID, int count){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put(Constant.Database.RoomLogCount.ROOM_ID, RoomID);
+        values.put(Constant.Database.RoomLogCount.UNREAD, count);
+
+
+        db.insertOrThrow(Constant.Database.TABLE_CHATROOM_LOG, Constant.Database.RoomLogCount.ROOM_ID , values);
+        db.close();
+    }
 
 
 
@@ -620,7 +635,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +Constant.Database.Chatroom.MSG_TYPE + " != ? AND "
                 +Constant.Database.Chatroom.READ_STATUS+" = ? ";
 
-        String[] selectionArgs = new String[] {chatRoomID,senderUid, "system","1"};
+        String[] selectionArgs = new String[] {chatRoomID,senderUid, "system","0"};
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(Constant.Database.TABLE_CHAT_ROOMS, null,  selection, selectionArgs, null,  null, null, null);
@@ -883,7 +898,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             admin = admin + "," + k;
         }
 
-        Log.d(TAG, admin);
 
         String member = "";
         for (String k : group.getMember().keySet() ){

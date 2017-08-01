@@ -181,6 +181,12 @@ private Button speakerButton,micButton;
     public void onBackPressed() {
         // User should exit activity by ending call, not by going back.
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    //    getSinchServiceInterface().stopClient();
+        unbindService(this);
+    }
 
     private void endCall() {
         mAudioPlayer.stopProgressTone();//

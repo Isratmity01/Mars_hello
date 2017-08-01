@@ -9,6 +9,7 @@ public class Constant {
         public static final String TABLE_CHAT_ROOMS = "chat_rooms";
         public static final String TABLE_CALLLOG = "userlog";
         public static final String TABLE_ROOM_LIST = "room_list";
+        public static final String TABLE_CHATROOM_LOG = "room_unreadcount";
         public static final String TABLE_GROUP_DETAILS = "group_details";
 
 
@@ -60,6 +61,10 @@ public class Constant {
             public static final String NAME = "name";
             public static final String TYPE = "type";
             public static final String NOTIFICATION_ON_OFF = "notification";
+        }
+        public static class RoomLogCount {
+            public static final String ROOM_ID = "roomId";
+            public static final String UNREAD = "unreadcount";
         }
 
 

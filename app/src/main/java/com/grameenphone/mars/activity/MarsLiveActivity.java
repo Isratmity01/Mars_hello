@@ -169,6 +169,7 @@ public class MarsLiveActivity extends AppCompatActivity {
 
         rootView = (View) findViewById(R.id.root_view);
         final ImageView emojiButton = (ImageView) findViewById(R.id.emoticon);
+        emojiButton.setImageResource(R.drawable.emoji);
         final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
         popup.setBackgroundDrawable(null);
 
