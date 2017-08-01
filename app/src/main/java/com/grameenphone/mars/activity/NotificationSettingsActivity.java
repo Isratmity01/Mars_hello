@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,8 +29,8 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         android.support.v7.app.ActionBar ab = getSupportActionBar();
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
+        final Drawable upArrow = ContextCompat.getDrawable(NotificationSettingsActivity.this,R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(ContextCompat.getColor(NotificationSettingsActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
         ab.setHomeAsUpIndicator(upArrow);
         setActionBarTitle("নোটিফিকেশন সেটিংস");
         notificationswitch.setOnClickListener(new View.OnClickListener() {

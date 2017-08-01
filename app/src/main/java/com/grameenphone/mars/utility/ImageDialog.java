@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.grameenphone.mars.R;
+import com.grameenphone.mars.activity.ChatRoomActivity;
 import com.grameenphone.mars.activity.GroupAddActivity;
 
 /**
@@ -35,7 +37,7 @@ public class ImageDialog extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
          android.support.v7.app.ActionBar ab = getSupportActionBar();
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        final Drawable upArrow = ContextCompat.getDrawable(ImageDialog.this,R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         ab.setDisplayHomeAsUpEnabled(true);

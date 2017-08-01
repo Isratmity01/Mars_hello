@@ -425,8 +425,8 @@ public class ChatRoomActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         android.support.v7.app.ActionBar ab = getSupportActionBar();
 
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
+        final Drawable upArrow = ContextCompat.getDrawable(ChatRoomActivity.this,R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(ContextCompat.getColor(ChatRoomActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
         ab.setHomeAsUpIndicator(upArrow);
 
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.chatroomRecyclerView);

@@ -544,8 +544,8 @@ EventBus.getDefault().register(this);
                 // Do something when expanded
                 getSupportActionBar().setHomeAsUpIndicator(null);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-                upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
+                final Drawable upArrow = ContextCompat.getDrawable(MainActivity.this,R.drawable.abc_ic_ab_back_material);
+                upArrow.setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
                 getSupportActionBar().setHomeAsUpIndicator(upArrow);
                 setItemsVisibility(menu, searchMenuItem, false);
                 bottomNavigationView.setVisibility(View.GONE);

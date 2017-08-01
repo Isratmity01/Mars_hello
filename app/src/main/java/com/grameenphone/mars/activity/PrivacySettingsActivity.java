@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +26,8 @@ public class PrivacySettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_privacy_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         android.support.v7.app.ActionBar ab = getSupportActionBar();
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
+        final Drawable upArrow = ContextCompat.getDrawable(PrivacySettingsActivity.this,R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(ContextCompat.getColor(PrivacySettingsActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
         ab.setHomeAsUpIndicator(upArrow);
         Contact=(Switch)findViewById(R.id.contacts_switch);
         setActionBarTitle("প্রাইভেসি সেটিংস");
