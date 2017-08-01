@@ -324,7 +324,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 roomListAdapter.refresh();
 
             }
-        }, 10 * 1000);
+        }, 5 * 1000);
 
 
         bottomNavigationView = (BottomNavigationView)
