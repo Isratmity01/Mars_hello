@@ -99,7 +99,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
         editGroupName = (TextView) findViewById(R.id.group_name_edit);
         groupPic = (CircleImageView) findViewById(R.id.group_image_view);
-        groupPic.setImageResource(R.drawable.hello1);
+        groupPic.setBackgroundResource(R.drawable.hello1);
         leaveGroupIcon = (ImageView) findViewById(R.id.leave_group_icon);
 
 

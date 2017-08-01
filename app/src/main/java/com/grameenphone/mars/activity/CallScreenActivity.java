@@ -184,8 +184,13 @@ private Button speakerButton,micButton;
     @Override
     protected void onStop() {
         super.onStop();
-    //    getSinchServiceInterface().stopClient();
-        unbindService(this);
+        //      getSinchServiceInterface().stopClient();
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
+
+        }
     }
 
     private void endCall() {

@@ -240,7 +240,12 @@ public class LogActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
   //      getSinchServiceInterface().stopClient();
-        unbindService(this);
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
+
+        }
     }
 
     @Override

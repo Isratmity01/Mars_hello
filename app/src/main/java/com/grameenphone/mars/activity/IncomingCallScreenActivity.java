@@ -199,8 +199,13 @@ public class IncomingCallScreenActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-   //     getSinchServiceInterface().stopClient();
-        unbindService(this);
+        //      getSinchServiceInterface().stopClient();
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
+
+        }
     }
 
     private OnClickListener mClickListener = new OnClickListener() {

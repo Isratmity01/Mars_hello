@@ -225,7 +225,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 } else {
                     dbHelper.addUser(user);
                 }
-
+                chatRooms.addAll(populateChatRoomArraylist());
+                roomListAdapter.refresh();
             }
 
             @Override
@@ -309,7 +310,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
 
 
-    /*    final Handler handler = new Handler();
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
             @Override
@@ -322,11 +323,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
                 roomListAdapter.refresh();
 
-
-                handler.postDelayed(this, 10 * 1000);
             }
         }, 10 * 1000);
-*/
+
 
         bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -593,16 +592,9 @@ EventBus.getDefault().register(this);
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPushNotificationEvent(PushNotificationEvent pushNotificationEvent) {
-        if(getReceivedRoomId()==pushNotificationEvent.getRoomid())
-        {
 
-        }
-        dbHelper.addUnreadCount(pushNotificationEvent.getRoomid(),1);
         chatRooms.clear();
-        if(getReceivedRoomId()==pushNotificationEvent.getRoomid())
-        {
 
-        }
         chatRooms.addAll(populateChatRoomArraylist());
         roomListAdapter.refresh();
     }

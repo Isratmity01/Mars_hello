@@ -277,6 +277,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             unReadMessageCount = (TextView) itemView.findViewById(R.id.un_read_message_count);
             timeStamp = (TextView) itemView.findViewById(R.id.time_stamp_un_read_message);
             roomImage = (CircleImageView) itemView.findViewById(R.id.friendImageView);
+            roomImage.setImageResource(R.drawable.ic_user_pic_02);
+
             deliveryStatus = (ImageView) itemView.findViewById(R.id.delivery_status);
         }
     }
