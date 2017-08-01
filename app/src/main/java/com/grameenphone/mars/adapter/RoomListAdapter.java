@@ -110,7 +110,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     if (current.getUnreadMessageCount() != null && !current.getUnreadMessageCount().equals("0")) {
                         itemHolder.unReadMessageCount.setText(current.getUnreadMessageCount());
-                        itemHolder.unReadMessageCount.setVisibility(View.VISIBLE);
+                        itemHolder.unReadMessageCount.setVisibility(View.INVISIBLE);
 
 
                         itemHolder.message.setTextColor(context.getResources().getColor(R.color.unseen_message_color));

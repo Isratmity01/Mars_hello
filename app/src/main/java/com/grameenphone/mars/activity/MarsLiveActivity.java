@@ -181,7 +181,7 @@ public class MarsLiveActivity extends AppCompatActivity {
 
             @Override
             public void onDismiss() {
-                changeEmojiKeyboardIcon(emojiButton, R.drawable.smiley);
+                changeEmojiKeyboardIcon(emojiButton, R.drawable.emoji);
             }
         });
 
