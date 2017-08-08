@@ -128,7 +128,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
 
-                if (!ApplicationChat.isChatActivityOpen()) {
+                if (databaseHelper.roomNotificationState(roomid)==0) {
 
                     sendNotification(title,
                             message,

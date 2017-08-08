@@ -317,7 +317,7 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
 
         super.onCreateOptionsMenu(menu,inflater);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
