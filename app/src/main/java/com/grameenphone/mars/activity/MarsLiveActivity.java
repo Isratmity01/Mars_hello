@@ -152,8 +152,8 @@ public class MarsLiveActivity extends AppCompatActivity {
         userArrayList= dbHelper.getAllUser();
         try {
 
-            liveUserListAdapter=new LiveUserListAdapter(MarsLiveActivity.this,userArrayList);
-            userrecylcer.setAdapter(liveUserListAdapter);
+          //  liveUserListAdapter=new LiveUserListAdapter(MarsLiveActivity.this,userArrayList);
+       //     userrecylcer.setAdapter(liveUserListAdapter);
             //userrecylcer.setOnClickListener((View.OnClickListener) getActivity().getApplicationContext());
         }catch (Exception e)
         {

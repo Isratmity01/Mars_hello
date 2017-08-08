@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_newCall"
+        android:icon="@drawable/ic_new_call"
+        android:title="নতুন কল"
+        app:showAsAction="ifRoom"/>
+
+
+
+</menu>

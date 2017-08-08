@@ -66,9 +66,9 @@ public class NewMemberAddAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         final FriendViewHolder itemHolder = (FriendViewHolder) holder;
         final User current = users.get(position);
-
-        itemHolder.emailTextView.setText(current.getPhone());
-        itemHolder.nameTextView.setText(current.getName());
+        String name=current.getName();
+        itemHolder.emailTextView.setText(name +"কে গ্রুপে অ্যাড করুন");
+        itemHolder.nameTextView.setText(name);
         itemHolder.times.setVisibility(View.GONE);
         itemHolder.delivery.setVisibility(View.GONE);
         itemHolder.unreadcount.setVisibility(View.GONE);

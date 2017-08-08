@@ -19,6 +19,7 @@ import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.ChatRoomActivity;
 import com.grameenphone.mars.activity.GroupChatActivity;
 import com.grameenphone.mars.activity.MainActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.model.Chat;
 import com.grameenphone.mars.model.ChatRoom;
@@ -46,13 +47,13 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private User me;
 
 
-    public RoomListAdapter(Context context, ArrayList<ChatRoom> rooms){
+    public RoomListAdapter(Context context, ArrayList<ChatRoom> rooms,DatabaseHelper helper,User meuser){
         this.context = context;
         allrooms=rooms;
         this.rooms = rooms;
-        dbHelper = new DatabaseHelper(context);
+        dbHelper = helper;
 
-        me = dbHelper.getMe();
+        me = meuser;
     }
 
 
@@ -181,9 +182,9 @@ public class RoomListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onClick(View view) {
 
                 if(current.getType().equals("p2p")) {
-                    startp2pChat(current.getRoomId(), current.getName());
+                    ((MainActivityHolder)context).StartP2p(current.getRoomId(), current.getName());
                 } else {
-                    startGroupChat(current.getRoomId(), current.getName());
+                    ((MainActivityHolder)context).startGroupChat(current.getRoomId(), current.getName());
                 }
 
 

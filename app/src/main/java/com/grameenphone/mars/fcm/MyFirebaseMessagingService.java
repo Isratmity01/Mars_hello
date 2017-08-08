@@ -17,6 +17,7 @@ import com.grameenphone.mars.ApplicationChat;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.ChatRoomActivity;
 import com.grameenphone.mars.activity.GroupChatActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.events.PushNotificationEvent;
 import com.grameenphone.mars.model.Chat;
@@ -191,9 +192,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 roomuid));
         if(!title.equals(sender)){
             message = sender + " : " + message;
-            intent = new Intent(this, GroupChatActivity.class);
+            intent = new Intent(this, MainActivityHolder.class);
+            intent.putExtra("room_type","grp");
         } else {
-            intent = new Intent(this, ChatRoomActivity.class);
+            intent = new Intent(this, MainActivityHolder.class);
+            intent.putExtra("room_type","p2p");
         }
 
 

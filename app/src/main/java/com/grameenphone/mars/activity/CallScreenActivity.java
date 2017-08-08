@@ -79,7 +79,10 @@ private Button speakerButton,micButton;
         imgpref = getIntent().getStringExtra("Photourl");
         Intent intent=getIntent();
         calltype=intent.getStringExtra("IsIncoming");
-
+        if(calltype==null)
+        {
+            calltype="no";
+        }
         Glide.with(getApplicationContext())
                .load(imgpref)
              .into(userImage);

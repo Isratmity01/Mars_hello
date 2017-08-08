@@ -164,7 +164,9 @@ public class GroupNameAndPhotoUpdateActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EditGroupActivity.class);
+        intent.putExtra("room_uid", roomID);
+        intent.putExtra("roomName", Name);
         startActivity(intent);
         finish();
 
@@ -209,7 +211,7 @@ public void saveInfo()
                 Toast.makeText(GroupNameAndPhotoUpdateActivity.this,"গ্রুপ আপডেট হয়েছে",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(GroupNameAndPhotoUpdateActivity.this, EditGroupActivity.class);
                 intent.putExtra("room_uid", roomID);
-                intent.putExtra("roomName", Name);
+                intent.putExtra("roomName", user_name);
                 startActivity(intent);
                 finish();
             }

@@ -1,8 +1,6 @@
 package com.grameenphone.mars.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.LogActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.activity.NewMessageActivity;
-import com.grameenphone.mars.fragment.Fragment_PlaceCall;
-import com.grameenphone.mars.model.CallDetails;
 import com.grameenphone.mars.model.User;
-import com.grameenphone.mars.model.Usersecond;
-import com.grameenphone.mars.utility.DateTimeUtility;
 
 import java.util.ArrayList;
 
@@ -81,8 +76,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         final User user = callDetailses.get(position);
-        holder.title.setText(user.getName());
-        holder.genre.setText(user.getPhone());
+        String name=user.getName();
+        holder.title.setText(name);
+        String lilname=name.trim().split("\\s+")[0];
+        if(!NewCall)  holder.genre.setText(lilname +" কে ম্যাসেজ করুন");
+        else {
+            holder.genre.setText(lilname +" কে ভয়েস কল করুন");
+        }
+
         if(user.getPhotoUrl() != null){
             Glide.with(holder.userImage.getContext())
                     .load(user.getPhotoUrl())
@@ -99,13 +100,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             public void onClick(View v) {
 
                if(NewCall)
-               {((LogActivity)mContext).callButtonClicked (callDetailses.get(position).getName(),
+               {((MainActivityHolder)mContext).callButtonClicked (callDetailses.get(position).getName(),
                        callDetailses.get(position).getPhotoUrl(),callDetailses.get(position).getUid());
                   ;
                }
                else
                {
-                   ((NewMessageActivity)mContext).startp2pChat(callDetailses.get(position).getName(),callDetailses.get(position).getUid());
+                   ((MainActivityHolder)mContext).StartP2p(callDetailses.get(position).getUid(),callDetailses.get(position).getName());
                }
 
             }

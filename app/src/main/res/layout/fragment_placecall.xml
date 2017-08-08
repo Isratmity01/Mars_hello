@@ -7,6 +7,12 @@
     tools:context=".fragment.Fragment_PlaceCall">
 
     <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/border13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/toolbar"
+        android:background="@color/border_color" />
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"

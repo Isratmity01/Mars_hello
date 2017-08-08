@@ -160,8 +160,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
-        startActivity(intent);
+
         finish();
 
     }

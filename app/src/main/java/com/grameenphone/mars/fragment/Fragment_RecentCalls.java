@@ -3,9 +3,13 @@ package com.grameenphone.mars.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.LogActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.adapter.UserCallAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.model.CallDetails;
@@ -25,7 +30,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-
 
 
 public class Fragment_RecentCalls extends Fragment {
@@ -47,6 +51,8 @@ public class Fragment_RecentCalls extends Fragment {
     TextView history;
     Button newCall;
     FrameLayout real,fake;
+    View fragmentView;
+    LinearLayout linearLayout1;
     public Fragment_RecentCalls() {
 
         // Required empty public constructor
@@ -62,8 +68,16 @@ public class Fragment_RecentCalls extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        setHasOptionsMenu(true);
         myEventBus = EventBus.getDefault();
         EventBus.getDefault().register(this);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator ( R.drawable.ic_backiconsmall );
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("হ্যালো ভয়েস কল");
     }
 
     @Nullable
@@ -71,9 +85,15 @@ public class Fragment_RecentCalls extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView = inflater.inflate(R.layout.fragment_recentcalls, container, false);
+        if (fragmentView == null){
 
-    bindViews(fragmentView);
+
+            fragmentView = inflater.inflate(R.layout.fragment_recentcalls,
+                    container, false);
+        bindViews(fragmentView);
+        }
+
+
         return fragmentView;
 }
 
@@ -82,6 +102,8 @@ public class Fragment_RecentCalls extends Fragment {
 
         fake=(FrameLayout)view.findViewById(R.id.emptyholder);
         linearLayout=(LinearLayout)view.findViewById(R.id.listholder);
+        linearLayout1=(LinearLayout)view.findViewById(R.id.nocalls);
+        linearLayout1.setBackgroundResource(R.drawable.ic_page_1);
         mRecyclerViewAllUserListing = (RecyclerView) view.findViewById(R.id.recycler_view_all_user_listing);
         history=(TextView)view.findViewById(R.id.noHistory);
         newCall=(Button)view.findViewById(R.id.new_call_fromRecent);
@@ -112,12 +134,36 @@ public class Fragment_RecentCalls extends Fragment {
     }
     public void newanother(){
         // your implementation
-        ((LogActivity)getActivity()).placeNewCallActivity();
+        ((MainActivityHolder)getActivity()).placeNewCallActivity();
     }
     @Subscribe
     public void onEvent(CallEnded event){
         // your implementation
        refreshlistview();
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.new_call, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_newCall:
+                newanother();
+                return true;
+
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
     public void populatelistview()
     {

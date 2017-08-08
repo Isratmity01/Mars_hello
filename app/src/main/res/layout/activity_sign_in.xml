@@ -124,7 +124,7 @@
             android:layout_below="@+id/field_phone_number_container"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            app:background="@drawable/phone_submit_button_shape"
+            android:background="@drawable/phone_submit_button_shape"
             android:paddingEnd="60dp"
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
@@ -143,6 +143,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/phone_submit_button_shape"
             android:paddingEnd="60dp"
+
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
             android:paddingStart="60dp"

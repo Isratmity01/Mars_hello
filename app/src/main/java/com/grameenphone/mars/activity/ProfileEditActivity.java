@@ -156,7 +156,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
 
             if (success) {
-                Intent intent = new Intent(ProfileEditActivity.this, MainActivity.class);
+                Intent intent = new Intent(ProfileEditActivity.this, MainActivityHolder.class);
                 startActivity(intent);
                 finish();
             }

@@ -65,7 +65,7 @@ String rname,rphone,rphotourl;
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_user_profile_chat);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -77,8 +77,8 @@ String rname,rphone,rphotourl;
         upArrow.setColorFilter(ContextCompat.getColor(UserProfileChatActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         actionbar.setDisplayHomeAsUpEnabled ( true );
-        Bundle b = new Bundle();
-        b = getIntent().getExtras();
+
+        Bundle b = getIntent().getExtras();
 
         rname = b.getString("receiver_name");
         rphone = b.getString("receiver_phone");
@@ -254,10 +254,7 @@ String rname,rphone,rphotourl;
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
-        intent.putExtra("room_name", rname);
-        intent.putExtra("room_uid", mroomId);
-        startActivity(intent);
+
         finish();
     }
 }

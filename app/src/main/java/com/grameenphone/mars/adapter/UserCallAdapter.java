@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.LogActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.model.CallDetails;
 import com.grameenphone.mars.utility.DateTimeUtility;
 
@@ -100,7 +101,7 @@ public class UserCallAdapter extends RecyclerView.Adapter<UserCallAdapter.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LogActivity)mContext).callButtonClicked(callDetails.getCallingTo(),callDetails.getImgUrl(),
+                ((MainActivityHolder)mContext).callButtonClicked(callDetails.getCallingTo(),callDetails.getImgUrl(),
                         callDetails.getUid());
                   }
         });

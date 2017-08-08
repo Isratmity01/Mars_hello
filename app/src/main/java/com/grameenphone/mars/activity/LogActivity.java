@@ -30,7 +30,9 @@ import com.grameenphone.mars.R;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.fragment.Fragment_Contacts;
 import com.grameenphone.mars.fragment.Fragment_PlaceCall;
+import com.grameenphone.mars.fragment.Fragment_PrivateChat;
 import com.grameenphone.mars.fragment.Fragment_RecentCalls;
+import com.grameenphone.mars.fragment.MessageFragment;
 import com.grameenphone.mars.gcm.SinchService;
 import com.grameenphone.mars.model.CallDetails;
 import com.grameenphone.mars.model.User;
@@ -147,7 +149,7 @@ public class LogActivity extends BaseActivity {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),getApplicationContext());
         adapter.addFragment(new Fragment_RecentCalls(), "রিসেন্ট");
         adapter.addFragment(new Fragment_Contacts(),  "কন্টাক্ট");
-     //   adapter.addFragment(new Fragment_PlaceCall(), "কল");
+      adapter.addFragment(new MessageFragment(), "MESSAGE");
 
 
 
@@ -159,7 +161,7 @@ public class LogActivity extends BaseActivity {
         Fragment_PlaceCall fragment = new Fragment_PlaceCall();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentholder, fragment);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack("newCall");
         frameLayout.setVisibility(View.VISIBLE);
         tabLayout.setVisibility(View.GONE);
         newCall.setVisibility(View.GONE);

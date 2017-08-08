@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.grameenphone.mars.R;
+import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.activity.MarsLiveActivity;
+import com.grameenphone.mars.dbhelper.DatabaseHelper;
+import com.grameenphone.mars.model.ChatRoom;
 import com.grameenphone.mars.model.User;
 
 import java.util.ArrayList;
@@ -24,13 +27,14 @@ import static com.grameenphone.mars.activity.GroupAddActivity.addSelectedMember;
 public class LiveUserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private ArrayList<User> users;
+    private ArrayList<ChatRoom> users;
     private LayoutInflater inflater;
+DatabaseHelper databaseHelper;
 
-
-    public LiveUserListAdapter(Context context, ArrayList<User> users){
+    public LiveUserListAdapter(Context context, ArrayList<ChatRoom> users, DatabaseHelper db){
         this.context = context;
         this.users = users;
+        databaseHelper=db;
     }
 
 
@@ -46,7 +50,7 @@ public class LiveUserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         final FriendViewHolder itemHolder = (FriendViewHolder) holder;
-        final User current = users.get(position);
+        final ChatRoom current = users.get(position);
 
         if(current.getPhotoUrl() != null){
             Glide.with(context)
@@ -61,8 +65,7 @@ public class LiveUserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         itemHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MarsLiveActivity) context).onClickCalled(position);
-
+                ((MainActivityHolder)context).StartP2p(current.getRoomId(), current.getName());
 
             }
         });

@@ -3,8 +3,6 @@ package com.grameenphone.mars.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
@@ -14,21 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.LogActivity;
 import com.grameenphone.mars.adapter.UserAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
-
 import com.grameenphone.mars.model.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 
 /**
@@ -49,6 +43,7 @@ public class Fragment_PlaceCall extends Fragment {
     RecyclerView allusers;
     ArrayList<User> userArrayList;
     UserAdapter userAdapter;
+    View fragmentView;
     EventBus myEventBus;
     public Fragment_PlaceCall() {
         // Required empty public constructor
@@ -61,6 +56,7 @@ public class Fragment_PlaceCall extends Fragment {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
         myEventBus = EventBus.getDefault();
         EventBus.getDefault().register(this);
        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator ( R.drawable.ic_backiconsmall );
@@ -85,9 +81,15 @@ public class Fragment_PlaceCall extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView = inflater.inflate(R.layout.fragment_placecall, container, false);
+        if (fragmentView == null){
 
-        bindViews(fragmentView);
+
+            fragmentView = inflater.inflate(R.layout.fragment_placecall,
+                    container, false);
+            bindViews(fragmentView);
+        }
+
+
         return fragmentView;
     }
     private void bindViews(View view) {
@@ -145,14 +147,7 @@ public class Fragment_PlaceCall extends Fragment {
 
             case android.R.id.home:
                 // Do onliTck on menu action here
-                ((LogActivity)getActivity()).findViewById(R.id.tabs).setVisibility(View.VISIBLE);
-
-                ((LogActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.logohdpi);
-                ((LogActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                ((LogActivity)getActivity()).getSupportActionBar().setTitle("");
-                ((LogActivity)getActivity()).findViewById(R.id.newcall).setVisibility(View.VISIBLE);
-                ((LogActivity)getActivity()).findViewById(R.id.viewpager).setVisibility(View.VISIBLE);
-                getFragmentManager().popBackStack();
+                getActivity().onBackPressed();
                 return true;
         }
         return false;

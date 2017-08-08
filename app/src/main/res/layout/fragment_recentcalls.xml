@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:id="@+id/realholder"
         android:visibility="visible"
+        android:layout_marginBottom="56dp"
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_all_user_listing"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
+
             android:visibility="visible"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager" />
@@ -41,7 +42,8 @@
     <FrameLayout
         android:id="@+id/emptyholder"
         android:layout_width="match_parent"
-        android:visibility="gone"
+
+        android:gravity="center"
         android:layout_height="match_parent"
        >
 
@@ -49,27 +51,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+
+            android:gravity="center"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:gravity="center"
                 >
-
+                <TextView
+                    android:id="@+id/texttext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="আপনার কল লিস্টে কোন তথ্য নেই"
+                    android:textColor="#aec3e3" />
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
                     android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/texttext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="আপনার কল লিস্টে কোন তথ্য নেই"
-                        android:textColor="#aec3e3" />
+
                     <Button
                         android:id="@+id/new_call_fromRecent"
                         android:layout_width="wrap_content"
@@ -77,13 +84,12 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:background="@drawable/phone_submit_button_shape"
                         android:text="নতুন কল "
+                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
-                        android:layout_marginTop="30dp"
-                        android:layout_below="@+id/texttext"
-                        android:layout_alignLeft="@+id/texttext"
-                        android:layout_alignStart="@+id/texttext"
-                        android:layout_marginLeft="60dp"
-                        android:layout_marginStart="60dp" />
+                        android:layout_marginTop="10dp"
+
+                        android:padding="10dp"
+                     />
 
 
                 </RelativeLayout>
@@ -93,7 +99,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:id="@+id/nocalls"
+                android:orientation="horizontal"
+                android:layout_weight=".8"
                 app:srcCompat="@drawable/ic_page_1"></LinearLayout>
 
             <LinearLayout

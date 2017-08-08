@@ -7,9 +7,9 @@
     xmlns:emojicon="http://schemas.android.com/apk/res-auto"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/chat_screen_background"
+    android:background="@color/text_white"
     android:id="@+id/root_view"
-    tools:context="com.grameenphone.mars.activity.GroupChatActivity">
+ >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -47,7 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-
+        <View
+            android:id="@+id/border15"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/border_color" />
         <android.support.constraint.ConstraintLayout
             android:id="@+id/msgedittext"
             android:layout_width="match_parent"

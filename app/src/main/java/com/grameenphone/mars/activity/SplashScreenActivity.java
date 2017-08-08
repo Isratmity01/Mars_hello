@@ -57,7 +57,7 @@ public class SplashScreenActivity extends Activity
     private void startARActivity()
     {
         Intent i = new Intent();
-        i.setClassName(mClassToLaunchPackage, "com.grameenphone.mars.activity.MainActivity");
+        i.setClassName(mClassToLaunchPackage, "com.grameenphone.mars.activity.MainActivityHolder");
         startActivity(i);
     }
 }

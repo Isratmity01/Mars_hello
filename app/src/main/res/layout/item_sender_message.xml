@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 emojicon:emojiconSize="38sp"
                 android:background="@drawable/shape_chat_bubble"
-                android:backgroundTint="@color/sender_chat_bubble"
                 android:textSize="7pt"
                 app:emojiconSize="10pt"
                 android:text="Hello"

@@ -838,7 +838,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<ChatRoom> getAllRoombytype(String roomtype){
 
+        ArrayList<ChatRoom> allChatrooms = new ArrayList<>();
+
+        String selection = Constant.Database.RoomDetail.TYPE+" = ? ";
+        String[] selectionArgs = new String[] {roomtype};
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(Constant.Database.TABLE_ROOM_LIST, null,  selection, selectionArgs, null,  null, null, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    String roomid = cursor.getString(0);
+                    String name = cursor.getString(1);
+                    String photourl = cursor.getString(2);
+                    String type = cursor.getString(3);
+
+
+                    /*
+
+                    Log.d(TAG, "name : " + cursor.getString(1));
+                    Log.d(TAG, "room id : " + cursor.getString(0));
+                    Log.d(TAG, "photo : " + cursor.getString(2));
+                    Log.d(TAG, "type : " + cursor.getString(3));
+
+                    */
+
+                    ChatRoom c = new ChatRoom(roomid,name,photourl,type);
+                    allChatrooms.add(c);
+
+
+
+
+                } while ( cursor.moveToNext());
+            }
+        } catch (Exception e){
+            Log.d(TAG, "chatroom nullpointer exception");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+                db.close();
+            }
+        }
+
+        return allChatrooms;
+
+    }
 
 
     public ChatRoom getRoom(String chatRoomID){

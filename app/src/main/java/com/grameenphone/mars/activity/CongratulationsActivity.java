@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class CongratulationsActivity extends Activity {
     private DatabaseReference mFirebaseDatabaseReference;
     private DatabaseHelper dbHelper;
     private Button profile;
+    private ImageView succ;
     private Boolean KeyboardEnabled=false;
     private static Boolean KeyboardChosen=false;
     private ProgressBar mProgressBar;
@@ -85,7 +87,8 @@ public class CongratulationsActivity extends Activity {
       //  chooseKeyboard();
     }
      /*
-*/
+*/      succ=(ImageView)findViewById(R.id.success_icon);
+        succ.setBackgroundResource(R.drawable.successful);
         profile = (Button) findViewById(R.id.profile);
         profile.setBackgroundResource(R.drawable.profile_button_shape);
         profile.setVisibility(View.GONE);
@@ -141,7 +144,7 @@ public class CongratulationsActivity extends Activity {
 
                     dbHelper.addMe(user);
 
-                    Intent intent = new Intent(CongratulationsActivity.this, MainActivity.class);
+                    Intent intent = new Intent(CongratulationsActivity.this, MainActivityHolder.class);
                     startActivity(intent);
                     finish();
 

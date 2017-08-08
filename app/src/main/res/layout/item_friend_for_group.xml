@@ -75,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:text="hello"
+
                         android:textSize="14sp"
                         android:layout_toRightOf="@id/profile_image"
                         android:layout_below="@id/profile_image"

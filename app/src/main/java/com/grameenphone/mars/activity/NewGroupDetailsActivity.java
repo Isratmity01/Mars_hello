@@ -1,6 +1,7 @@
 package com.grameenphone.mars.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.adapter.SelectedFriendListAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
+import com.grameenphone.mars.fragment.MessageFragment;
 import com.grameenphone.mars.model.Group;
 import com.grameenphone.mars.model.User;
 
@@ -40,6 +44,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -62,7 +67,7 @@ public class NewGroupDetailsActivity extends AppCompatActivity {
 
     private RecyclerView selectedFriend;
     private static SelectedFriendListAdapter selectedFriendAdapter;
-
+Context context;
     private ProgressDialog progressDialog;
     private EditText groupName;
     private CircleImageView groupPic;
@@ -76,7 +81,7 @@ public class NewGroupDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_new_group_details);
-
+context=NewGroupDetailsActivity.this;
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         dbHelper = new DatabaseHelper(getApplicationContext());
@@ -171,10 +176,10 @@ public class NewGroupDetailsActivity extends AppCompatActivity {
             mFirebaseDatabaseReference.child(GROUP_CHILD).child(groupId)
                     .setValue(group);
             dbHelper.addGroup(group);
-
-            Intent intent = new Intent(getApplicationContext(), GroupChatActivity.class);
-            intent.putExtra("room_uid", groupId);
-            intent.putExtra("room_name", name);
+            Intent intent = new Intent(this,MainActivityHolder.class);
+            intent.putExtra("room_uid",groupId); //for example
+            intent.putExtra("room_name",name); //for example
+            intent.putExtra("room_type","grp");
             startActivity(intent);
             finish();
 

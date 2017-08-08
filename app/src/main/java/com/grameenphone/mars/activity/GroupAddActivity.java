@@ -148,6 +148,7 @@ public class GroupAddActivity extends AppCompatActivity {
                     Intent groupDetailIntent = new Intent(this, NewGroupDetailsActivity.class);
                     groupDetailIntent.putStringArrayListExtra("users_uid", selectedMember);
                     startActivity(groupDetailIntent);
+
                 } else {
                     Toast.makeText( getApplicationContext(), "please select more then 1 user", Toast.LENGTH_SHORT ).show();
                 }
@@ -171,8 +172,7 @@ public class GroupAddActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+
         finish();
 
     }

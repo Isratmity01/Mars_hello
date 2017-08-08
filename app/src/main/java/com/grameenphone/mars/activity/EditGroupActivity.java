@@ -313,10 +313,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), GroupChatActivity.class);
-        intent.putExtra("room_uid", roomId);
-        intent.putExtra("room_name", roomName);
-        startActivity(intent);
+
         finish();
     }
 

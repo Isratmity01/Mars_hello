@@ -47,7 +47,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/shape_chat_bubble"
+                    android:background="@drawable/shape_chat_bubble_receive"
                     android:gravity="start"
                     android:text=" এই যে চলছে বেশ ভালোই। শোন, আমার টাকা পয়সা বেশী হয়ে গেছে, বুঝলি? চল তোরে ট্রিট দেই! কই খাইতে চাস? বার্গার কিং? "
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"

@@ -5,11 +5,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -22,13 +20,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.adapter.ContactListAdapter;
 import com.grameenphone.mars.model.SelectUser;
 import com.sinch.android.rtc.MissingPermissionException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +42,7 @@ public class Fragment_Contacts extends Fragment {
     ArrayList<SelectUser> selectUsers=new ArrayList<SelectUser>();
     ArrayList<SelectUser> distinctselectUsers=new ArrayList<SelectUser>();
     List<SelectUser> temp;
+    View fragmentView;
     // Pop up
     ContentResolver resolver;
     ListView listView;
@@ -60,15 +57,22 @@ public class Fragment_Contacts extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView = inflater.inflate(R.layout.fragment_blank2, container, false);
+        if (fragmentView == null){
 
-        bindViews(fragmentView);
+
+            fragmentView = inflater.inflate(R.layout.fragment_blank2,
+                    container, false);
+            bindViews(fragmentView);
+        }
+
+
         return fragmentView;
     }
     private void bindViews(View view) {

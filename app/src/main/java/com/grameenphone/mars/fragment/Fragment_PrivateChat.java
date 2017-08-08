@@ -1,5 +1,4 @@
-package com.grameenphone.mars.activity;
-
+package com.grameenphone.mars.fragment;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -15,30 +14,32 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,24 +52,23 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.grameenphone.mars.ApplicationChat;
 import com.grameenphone.mars.R;
+import com.grameenphone.mars.activity.ChatRoomActivity;
+import com.grameenphone.mars.activity.LogActivity;
+import com.grameenphone.mars.activity.MainActivityHolder;
+import com.grameenphone.mars.activity.UserProfileChatActivity;
 import com.grameenphone.mars.adapter.ChatRoomAdapter;
+import com.grameenphone.mars.adapter.UserAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.fcm.FcmNotificationBuilder;
-import com.grameenphone.mars.gcm.SinchService;
-import com.grameenphone.mars.model.CallDetails;
 import com.grameenphone.mars.model.Chat;
-import com.grameenphone.mars.model.ChatRoom;
 import com.grameenphone.mars.model.ChatSent;
 import com.grameenphone.mars.model.FileModel;
 import com.grameenphone.mars.model.User;
 import com.grameenphone.mars.utility.Constant;
-import com.sinch.android.rtc.MissingPermissionException;
-import com.sinch.android.rtc.calling.Call;
-import com.sinch.gson.JsonObject;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -78,15 +78,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import github.ankushsachdeva.emojicon.EmojiconEditText;
 import github.ankushsachdeva.emojicon.EmojiconGridView;
 import github.ankushsachdeva.emojicon.EmojiconsPopup;
 import github.ankushsachdeva.emojicon.StickerGridView;
 import github.ankushsachdeva.emojicon.emoji.Emojicon;
 
-public class ChatRoomActivity extends BaseActivity {
+import static android.app.Activity.RESULT_OK;
 
 
+/**
+ * Created by shadman.rahman on 13-Jun-17.
+ */
+
+public class Fragment_PrivateChat extends Fragment {
     public static String CHAT_ROOMS_CHILD = "chat_rooms";
     public static String MESSAGES_CHILD = "";
     String firstDate, newDate;
@@ -178,28 +184,105 @@ public class ChatRoomActivity extends BaseActivity {
     Calendar calendar;
     Boolean IsSent=false;
     private static String sChatRoomName = "";
-
-
-
+    View fragmentView;
+    public Fragment_PrivateChat() {
+        // Required empty public constructor
+    }
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        setContentView(R.layout.activity_chat_room);
+        setHasOptionsMenu(true);
+        getActivity().findViewById(R.id.myBottomNavigation_ID).setVisibility(View.GONE);
+       Bundle bundle = this.getArguments();
+        String room_id = bundle.getString("room_uid");
+       // roomName = bundle.getString("room_name");
+        dbHelper = new DatabaseHelper(getActivity());
+        MESSAGES_CHILD = room_id;
+        me = dbHelper.getMe();
+        dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 0);
+        sender = dbHelper.getMe();
+        receiver_uid = (MESSAGES_CHILD.replace(sender.getUid(), "")).replace("_", "");
+        receiver = dbHelper.getUser(receiver_uid);
+        android.support.v7.app.ActionBar ab =  ((AppCompatActivity)getActivity()).getSupportActionBar();
 
-        context = ChatRoomActivity.this;
+        final Drawable upArrow = ContextCompat.getDrawable(getActivity(),R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(ContextCompat.getColor(getActivity(),R.color.icons), PorterDuff.Mode.SRC_ATOP);
+        ab.setHomeAsUpIndicator(upArrow);
+       ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator ( R.drawable.ic_backiconsmall );
 
-        emojiconEditText = (EmojiconEditText) findViewById(R.id.messageEditText);
-        jumpToBottom = (Button) findViewById(R.id.jump_bottom);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(receiver.getName());
+
+      //  setActionBarTitle("নোটিফিকেশন সেটিংস");
+
+    }
+
+    public boolean onSupportNavigateUp(){
+        getActivity().getSupportFragmentManager().popBackStack();
+        return true;
+    }
+    public void setActionBarTitle(String title) {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        if (fragmentView == null){
+
+
+            fragmentView = inflater.inflate(R.layout.activity_chat_room,
+                    container, false);
+            bindViews(fragmentView);
+        }
+
+
+
+        return fragmentView;
+    }
+    private void bindViews(View view) {
+        context = getActivity().getApplicationContext();
+        emojiconEditText = (EmojiconEditText) view.findViewById(R.id.messageEditText);
+        jumpToBottom = (Button) view.findViewById(R.id.jump_bottom);
+        mSendButton = (ImageView) view.findViewById(R.id.send_button);
+        mSendButton.setEnabled(false);
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                long time = System.currentTimeMillis();
+                final Chat chat = new Chat(sender.getName(), receiver.getName(),
+                        sender.getUid(), receiver.getUid(),
+                        emojiconEditText.getText().toString(),
+                        time, "txt");
+
+
+                mFirebaseDatabaseReference.child(CHAT_ROOMS_CHILD).child(MESSAGES_CHILD).push().setValue(chat);
+
+                if(receiver.getFirebaseToken()!=null) {
+                    IsSent=true;
+                    //  chat.setReadStatus(0);
+                    //  dbHelper.addMessage(chat, chat.getChatId());
+
+                }
+
+
+                emojiconEditText.setText("");
+            }
+        });
         jumpToBottom.setVisibility(View.GONE);
-        rootView = (View) findViewById(R.id.root_view);
-        final ImageView emojiButton = (ImageView) findViewById(R.id.emoticon);
+        rootView = (View) view.findViewById(R.id.root_view);
+        final ImageView emojiButton = (ImageView) view.findViewById(R.id.emoticon);
         emojiButton.setImageResource(R.drawable.emoji);
 
-        final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
+        final EmojiconsPopup popup = new EmojiconsPopup(rootView, getActivity().getApplicationContext());
         popup.setBackgroundDrawable(null);
         popup.setSizeForSoftKeyboard();
         popup.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -209,21 +292,7 @@ public class ChatRoomActivity extends BaseActivity {
                 changeEmojiKeyboardIcon(emojiButton, R.drawable.emoji);
             }
         });
-
-        dbHelper = new DatabaseHelper(getApplicationContext());
-        me = dbHelper.getMe();
-        dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 0);
-        sender = dbHelper.getMe();
-        receiver_uid = (MESSAGES_CHILD.replace(sender.getUid(), "")).replace("_", "");
-        receiver = dbHelper.getUser(receiver_uid);
-        receiverFirebaseToken = receiver.getFirebaseToken();
-        sChatRoomName = receiver.getName();
-        calendar = Calendar.getInstance();
-
-
-        //Will automatically set size according to the soft keyboard size
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         editor = preferences.edit();
         popup.setOnSoftKeyboardOpenCloseListener(new EmojiconsPopup.OnSoftKeyboardOpenCloseListener() {
 
@@ -324,7 +393,7 @@ public class ChatRoomActivity extends BaseActivity {
                         emojiconEditText.setFocusableInTouchMode(true);
                         emojiconEditText.requestFocus();
                         popup.showAtBottomPending();
-                        final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.showSoftInput(emojiconEditText, InputMethodManager.SHOW_IMPLICIT);
                         changeEmojiKeyboardIcon(emojiButton, R.drawable.ic_keyboard);
                     }
@@ -365,7 +434,7 @@ public class ChatRoomActivity extends BaseActivity {
                 }
             }
         });
-        attachment = (ImageView) findViewById(R.id.attachment);
+        attachment = (ImageView) view.findViewById(R.id.attachment);
         attachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,12 +442,12 @@ public class ChatRoomActivity extends BaseActivity {
             }
         });
 
-        pushToTalk = (ImageView) findViewById(R.id.push_to_talk);
+        pushToTalk = (ImageView) view.findViewById(R.id.push_to_talk);
 
         pushToTalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(ChatRoomActivity.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity().getApplicationContext());
                 alert.setTitle("");
                 alert.setMessage("সরি, এই ফিচারটি এখনো অ্যাভেইলেবল না");
                 alert.setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
@@ -393,37 +462,41 @@ public class ChatRoomActivity extends BaseActivity {
 
 
 
-        progressDialog = new ProgressDialog(ChatRoomActivity.this);
+        progressDialog = new ProgressDialog(getActivity());
 
 
-        getSupportActionBar().setHomeAsUpIndicator(null);
-        getSupportActionBar().setTitle(receiver.getName());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        android.support.v7.app.ActionBar ab = getSupportActionBar();
 
-        final Drawable upArrow = ContextCompat.getDrawable(ChatRoomActivity.this,R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(ContextCompat.getColor(ChatRoomActivity.this,R.color.icons), PorterDuff.Mode.SRC_ATOP);
-        ab.setHomeAsUpIndicator(upArrow);
 
-        mMessageRecyclerView = (RecyclerView) findViewById(R.id.chatroomRecyclerView);
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.chatroomRecyclerView);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
-        //If the emoji popup is dismissed, change emojiButton to smiley icon
 
 
-        //If the text keyboard closes, also dismiss the emoji popup
+    }
+    @Subscribe
+    public void onEvent(User event){
+        // your implementation
+        ((LogActivity)getActivity()).callButtonClicked(event.getName(),event.getPhotoUrl(),event.getUid());
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        init();
+    }
+    public void init()
+    {
 
-
-
-        // New child entries
+        receiverFirebaseToken = receiver.getFirebaseToken();
+        sChatRoomName = receiver.getName();
+        calendar = Calendar.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         //chats = dbHelper.getAllMsg(sender.getUid(),receiver.getUid());
         //System.out.println(chats.size() + " Here is the size ");
 
-        chatRoomAdapter = new ChatRoomAdapter(ChatRoomActivity.this.getApplicationContext(), chats, sender, receiver, MESSAGES_CHILD);
+        chatRoomAdapter = new ChatRoomAdapter(getActivity().getApplicationContext(), chats, sender, receiver, MESSAGES_CHILD);
 
         chatRoomAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -450,7 +523,7 @@ public class ChatRoomActivity extends BaseActivity {
         mMessageRecyclerView.setAdapter(chatRoomAdapter);
 
 
-        mFirebaseDatabaseReference.child("chat_rooms").child(MESSAGES_CHILD)
+        mFirebaseDatabaseReference.child("chat_rooms").child(MESSAGES_CHILD).limitToLast(100)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -544,10 +617,10 @@ public class ChatRoomActivity extends BaseActivity {
                                     }
                                     else if (c.getMessageType()=="img")
                                     {
-                                    sendPushNotificationToReceiver(chatobject,c.getSender(), "ছবি পাঠিয়েছেন",
-                                            c.getSender(), me.getFirebaseToken(), receiverFirebaseToken, MESSAGES_CHILD);
+                                        sendPushNotificationToReceiver(chatobject,c.getSender(), "ছবি পাঠিয়েছেন",
+                                                c.getSender(), me.getFirebaseToken(), receiverFirebaseToken, MESSAGES_CHILD);
 
-                                }
+                                    }
 
                                 }
 
@@ -669,7 +742,7 @@ public class ChatRoomActivity extends BaseActivity {
                     pushToTalk.setVisibility(View.GONE);
                     mSendButton.setVisibility(View.VISIBLE);
                     mSendButton.setEnabled(true);
-                    mSendButton.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    mSendButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.colorAccent));
 
 
                 } else {
@@ -677,7 +750,7 @@ public class ChatRoomActivity extends BaseActivity {
                     attachment.setVisibility(View.VISIBLE);
                     pushToTalk.setVisibility(View.VISIBLE);
                     mSendButton.setEnabled(false);
-                    mSendButton.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.disabled));
+                    mSendButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.disabled));
                 }
             }
 
@@ -686,230 +759,13 @@ public class ChatRoomActivity extends BaseActivity {
 
             }
         });
-
-
-
-        mSendButton = (ImageView) findViewById(R.id.send_button);
-        mSendButton.setEnabled(false);
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                long time = System.currentTimeMillis();
-                final Chat chat = new Chat(sender.getName(), receiver.getName(),
-                        sender.getUid(), receiver.getUid(),
-                        emojiconEditText.getText().toString(),
-                        time, "txt");
-
-
-                mFirebaseDatabaseReference.child(CHAT_ROOMS_CHILD).child(MESSAGES_CHILD).push().setValue(chat);
-
-                if(receiver.getFirebaseToken()!=null) {
-                    IsSent=true;
-                  //  chat.setReadStatus(0);
-                  //  dbHelper.addMessage(chat, chat.getChatId());
-
-                }
-
-
-                emojiconEditText.setText("");
-            }
-        });
-    }
-
-    @Override
-    protected void onServiceConnected() {
-
-        String get = null;
-        try {
-            get = getSinchServiceInterface().getUserName();
-        } catch (Exception e) {
-
-        }
-
-        if (TextUtils.isEmpty(get)) {
-            if (me.getUid() == null) return;
-            else
-                getSinchServiceInterface().startClient(me.getUid());
-
-
-        }
-
-        //else userName.setText(get);
-        //   mCallButton.setEnabled(true);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        StorageReference storageRef = storage.getReferenceFromUrl(Constant.Storage.STORAGE_URL).child(Constant.Storage.ATTACHMENT);
-
-        if (requestCode == IMAGE_GALLERY_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Uri selectedImageUri = data.getData();
-                if (selectedImageUri != null) {
-                    sendPhotoFirebase(storageRef, selectedImageUri);
-                } else {
-                    //FIX ME
-                }
-            }
-        }
-    }
-
-
-    private void sendPhotoFirebase(StorageReference storageReference, final Uri file) {
-        if (storageReference != null) {
-            final String name = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
-            final long time = System.currentTimeMillis();
-            StorageReference imageGalleryRef = storageReference.child(name + "_gallery");
-
-
-            try {
-
-                InputStream image_stream = getContentResolver().openInputStream(file);
-                Bitmap bitmap = BitmapFactory.decodeStream(image_stream);
-
-                int size = (bitmap.getByteCount()) / 1000;
-
-                int imageReductionRate = 100;
-                if (size < 2000 && size > 1000) {
-                    imageReductionRate = 60;
-                } else if (size < 3000 && size > 2000) {
-                    imageReductionRate = 50;
-                } else if (size < 5000 && size > 3000) {
-                    imageReductionRate = 30;
-                } else if (size > 5000) {
-                    imageReductionRate = 15;
-                }
-
-
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, imageReductionRate, outputStream);
-                byte[] data = outputStream.toByteArray();
-                UploadTask uploadTask = imageGalleryRef.putBytes(data);
-
-
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "onFailure sendPhotoFirebase " + e.getMessage());
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @SuppressWarnings("VisibleForTests")
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressDialog.dismiss();
-                        Log.i(TAG, "onSuccess sendPhotoFirebase");
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        FileModel file = new FileModel("img", downloadUrl.toString(), name, "");
-                        Chat chat = new Chat(sender.getName(), receiver.getName(),
-                                sender.getUid(), receiver.getUid(), sender.getPhotoUrl(), "Image", time, file, file.getType());
-                        mFirebaseDatabaseReference.child(CHAT_ROOMS_CHILD).child(MESSAGES_CHILD).push().setValue(chat);
-                    //    chat.setReadStatus(0);
-                      //  chat.setMessage("ছবি পাঠিয়েছেন");
-                        //dbHelper.addMessage(chat, chat.getChatId());
-                        //EventBus.getDefault().post(new ChatSent("yes"));
-                      IsSent=true;
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @SuppressWarnings("VisibleForTests")
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred());
-                        progressDialog.setMessage("Uploading ..");
-                        progressDialog.show();
-                    }
-                });
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            //FIXME
-        }
-
-    }
-
-
-    private void changeEmojiKeyboardIcon(ImageView iconToBeChanged, int drawableResourceId) {
-        iconToBeChanged.setImageResource(drawableResourceId);
     }
 
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    private void photoGalleryIntent() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture_title)), IMAGE_GALLERY_REQUEST);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ApplicationChat.setChatActivityOpen(true);
-        sChatRoomName = receiver.getName();
-        dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 0);
-
-    }
-
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        sChatRoomName = receiver.getName();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //      getSinchServiceInterface().stopClient();
-        try {
-            unbindService(this);
-        }catch (Exception e)
-        {
-
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        ApplicationChat.setChatActivityOpen(false);
-        sChatRoomName = "";
-        dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 1);
-
-
-    }
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sChatRoomName = "";
-        dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 1);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-
-        MenuInflater inflater = getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.chat_menu, menu);
-
-        return true;
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
@@ -918,20 +774,21 @@ public class ChatRoomActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case R.id.chat_info:
-                Intent intent = new Intent(getApplicationContext(), UserProfileChatActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), UserProfileChatActivity.class);
                 intent.putExtra("receiver_name", receiver.getName());
                 intent.putExtra("receiver_uid", receiver.getUid());
                 intent.putExtra("room_uid", MESSAGES_CHILD);
                 intent.putExtra("receiver_phone", receiver.getPhone());
                 intent.putExtra("receiver_photo_url", receiver.getPhotoUrl());
                 startActivity(intent);
+
                 return true;
             case android.R.id.home:
-                onBackPressed();
+                getActivity().onBackPressed();
                 return true;
             case R.id.call_buddy:
 
-                call();
+                ((MainActivityHolder)getActivity()).callButtonClicked(receiver.getName(),receiver.getPhotoUrl(),receiver_uid);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -939,33 +796,21 @@ public class ChatRoomActivity extends BaseActivity {
 
 
     }
+    @Subscribe
+    public void onEvent(String s){
+        // your implementation
 
-    public void call() {
-        if (receiver_uid.isEmpty()) {
-            //Toast.makeText(this, "Please enter a user to call", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        try {
-            Call call = getSinchServiceInterface().callUser(receiver_uid);
-            if (call == null) {
-                //Service failed for some reason, show a Toast and abort
-                Toast.makeText(this, "Service is not started. Try stopping the service and starting it again before "
-                        + "placing a call.", Toast.LENGTH_LONG).show();
-                return;
-            }
-            String callId = call.getCallId();
-            final CallDetails user = new CallDetails(receiver.getName(), System.currentTimeMillis(), "outgoing", receiver.getUid(), receiver.getPhotoUrl());
-            dbHelper.addUserLog(user);
-            Intent callScreen = new Intent(this, CallScreenActivity.class);
-            callScreen.putExtra("Photourl", sender.getPhotoUrl());
-            callScreen.putExtra(SinchService.CALL_ID, callId);
-            startActivity(callScreen);
-        } catch (MissingPermissionException e) {
-            ActivityCompat.requestPermissions(this, new String[]{e.getRequiredPermission()}, 0);
-        }
     }
 
+    private void changeEmojiKeyboardIcon(ImageView iconToBeChanged, int drawableResourceId) {
+        iconToBeChanged.setImageResource(drawableResourceId);
+    }
+    private void photoGalleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture_title)), IMAGE_GALLERY_REQUEST);
+    }
     private String EToB(String english_number) {
         if (english_number.equals("null") || english_number.equals(""))
             return english_number;
@@ -1050,6 +895,98 @@ public class ChatRoomActivity extends BaseActivity {
         }
 
         return chat;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        StorageReference storageRef = storage.getReferenceFromUrl(Constant.Storage.STORAGE_URL).child(Constant.Storage.ATTACHMENT);
+
+        if (requestCode == IMAGE_GALLERY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    sendPhotoFirebase(storageRef, selectedImageUri);
+                } else {
+                    //FIX ME
+                }
+            }
+        }
+    }
+
+
+    private void sendPhotoFirebase(StorageReference storageReference, final Uri file) {
+        if (storageReference != null) {
+            final String name = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
+            final long time = System.currentTimeMillis();
+            StorageReference imageGalleryRef = storageReference.child(name + "_gallery");
+
+
+            try {
+
+                InputStream image_stream = getActivity().getContentResolver().openInputStream(file);
+                Bitmap bitmap = BitmapFactory.decodeStream(image_stream);
+
+                int size = (bitmap.getByteCount()) / 1000;
+
+                int imageReductionRate = 100;
+                if (size < 2000 && size > 1000) {
+                    imageReductionRate = 60;
+                } else if (size < 3000 && size > 2000) {
+                    imageReductionRate = 50;
+                } else if (size < 5000 && size > 3000) {
+                    imageReductionRate = 30;
+                } else if (size > 5000) {
+                    imageReductionRate = 15;
+                }
+
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, imageReductionRate, outputStream);
+                byte[] data = outputStream.toByteArray();
+                UploadTask uploadTask = imageGalleryRef.putBytes(data);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure sendPhotoFirebase " + e.getMessage());
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @SuppressWarnings("VisibleForTests")
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Log.i(TAG, "onSuccess sendPhotoFirebase");
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        FileModel file = new FileModel("img", downloadUrl.toString(), name, "");
+                        Chat chat = new Chat(sender.getName(), receiver.getName(),
+                                sender.getUid(), receiver.getUid(), sender.getPhotoUrl(), "Image", time, file, file.getType());
+                        mFirebaseDatabaseReference.child(CHAT_ROOMS_CHILD).child(MESSAGES_CHILD).push().setValue(chat);
+                        //    chat.setReadStatus(0);
+                        //  chat.setMessage("ছবি পাঠিয়েছেন");
+                        //dbHelper.addMessage(chat, chat.getChatId());
+                        //EventBus.getDefault().post(new ChatSent("yes"));
+                        IsSent=true;
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @SuppressWarnings("VisibleForTests")
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred());
+                        progressDialog.setMessage("Uploading ..");
+                        progressDialog.show();
+                    }
+                });
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            //FIXME
+        }
+
     }
 
 }

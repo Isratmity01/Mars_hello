@@ -51,8 +51,10 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final FriendViewHolder itemHolder = (FriendViewHolder) holder;
         final User current = users.get(position);
         itemHolder.setIsRecyclable(false);
-        itemHolder.phoneTextView.setText(current.getPhone());
-        itemHolder.nameTextView.setText(current.getName());
+       String name= current.getName();
+        String lilname=name.trim().split("\\s+")[0];
+        itemHolder.phoneTextView.setText(lilname +"কে গ্রুপে অ্যাড করুন");
+        itemHolder.nameTextView.setText(name);
 
         if(current.getPhotoUrl() != null){
             Glide.with(context)

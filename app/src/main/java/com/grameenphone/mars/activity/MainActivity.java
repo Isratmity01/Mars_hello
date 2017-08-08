@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
 
         mFriendRecyclerView = (RecyclerView) findViewById(R.id.friendListRecyclerView);
-        roomListAdapter = new RoomListAdapter(MainActivity.this, chatRooms);
+        roomListAdapter = new RoomListAdapter(MainActivity.this, chatRooms,dbHelper,me);
 
 
         mFriendRecyclerView.setAdapter(roomListAdapter);
@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatRoom chatroom = dataSnapshot.getValue(ChatRoom.class);
-                dbHelper.addRoom(chatroom.getRoomId(), chatroom.getName(), chatroom.getPhotoUrl(), chatroom.getType());
+                dbHelper.addRoom(chatroom.getRoomId(),chatroom.getName(), chatroom.getPhotoUrl(), chatroom.getType());
 
                 if(!chatroom.getRoomId().equals("p2p")){
 
