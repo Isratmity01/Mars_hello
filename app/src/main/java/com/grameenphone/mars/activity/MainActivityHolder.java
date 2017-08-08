@@ -1,14 +1,18 @@
 package com.grameenphone.mars.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,10 +43,16 @@ import com.grameenphone.mars.model.User;
 import com.sinch.android.rtc.MissingPermissionException;
 import com.sinch.android.rtc.calling.Call;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class MainActivityHolder extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 180;
     private GoogleApiClient mGoogleApiClient;
-    public static   AHBottomNavigation bottomNavigation;
+    public static AHBottomNavigation bottomNavigation;
     MessageFragment messageFragment;
     DatabaseHelper databaseHelper;
     Call call;
@@ -50,9 +60,10 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     private String mUsername;
     public static final String ANONYMOUS = "anonymous";
     User me;
-    String Name,roomID,roomType;
+    String Name, roomID, roomType;
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,47 +73,48 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         roomID = intent.getStringExtra("room_uid");
         roomType = intent.getStringExtra("room_type");
         mFirebaseAuth = FirebaseAuth.getInstance();
-         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-         messageFragment=new MessageFragment();
+        messageFragment = new MessageFragment();
         ActionBar ab = getSupportActionBar();
 
-       databaseHelper=new DatabaseHelper(MainActivityHolder.this);
-        me=databaseHelper.getMe();
+        databaseHelper = new DatabaseHelper(MainActivityHolder.this);
+        me = databaseHelper.getMe();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkPermissions();
+            //user is using app for the first time
+        }
 
         ab.setHomeAsUpIndicator(R.drawable.logohdpi);
         ab.setDisplayHomeAsUpEnabled(true);
-        bottomNavigation= (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
         bottomNavigation.setOnTabSelectedListener(this);
-       // bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        // bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setBehaviorTranslationEnabled(false);
         bottomNavigation.isForceTitlesDisplay();
 
 
         this.createNavItems();
-        if(Name!=null&&roomID!=null && roomType.equals("grp"))
-        {
+        if (Name != null && roomID != null && roomType.equals("grp")) {
             startGroupChat(roomID, Name);
-        }
-        else if(Name!=null&&roomID!=null && roomType.equals("p2p"))
-        {
+        } else if (Name != null && roomID != null && roomType.equals("p2p")) {
             StartP2p(roomID, Name);
         }
 
         mGoogleApiClient = new GoogleApiClient.Builder(MainActivityHolder.this)
-                .enableAutoManage(MainActivityHolder.this /* FragmentActivity */,this  /* OnConnectionFailedListener */)
+                .enableAutoManage(MainActivityHolder.this /* FragmentActivity */, this  /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
     }
 
-    private void createNavItems()
-    {
+    private void createNavItems() {
         //CREATE ITEMS
-        AHBottomNavigationItem crimeItem=new AHBottomNavigationItem("চ্যাট রুম", R.drawable.ic_msg);
-        AHBottomNavigationItem dramaItem=new AHBottomNavigationItem("কল", R.drawable.ic_call);
-        AHBottomNavigationItem docstem=new AHBottomNavigationItem("লাইভ", R.drawable.ic_live);
-        AHBottomNavigationItem docstem2=new AHBottomNavigationItem("প্রোফাইল", R.drawable.ic_more);
+        AHBottomNavigationItem crimeItem = new AHBottomNavigationItem("ম্যাসেজ", R.drawable.ic_msg);
+        AHBottomNavigationItem dramaItem = new AHBottomNavigationItem("কল", R.drawable.ic_call);
+        AHBottomNavigationItem docstem = new AHBottomNavigationItem("লাইভ", R.drawable.ic_live);
+        AHBottomNavigationItem docstem2 = new AHBottomNavigationItem("প্রোফাইল", R.drawable.ic_more);
         //ADD THEM to bar
         bottomNavigation.addItem(crimeItem);
         bottomNavigation.addItem(dramaItem);
@@ -116,11 +128,11 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         bottomNavigation.setCurrentItem(0);
 
     }
-    public void StartP2p(String roomId, String name)
-    {
+
+    public void StartP2p(String roomId, String name) {
         Bundle bundle = new Bundle();
-        bundle.putString("room_uid", roomId );
-        bundle.putString("room_name", name );
+        bundle.putString("room_uid", roomId);
+        bundle.putString("room_name", name);
 
         Fragment_PrivateChat fragment = new Fragment_PrivateChat();
         fragment.setArguments(bundle);
@@ -128,15 +140,15 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         transaction.replace(R.id.content_id, fragment);
 
         transaction.addToBackStack("p2p");
-    //    transaction.addToBackStack(null);
+        //    transaction.addToBackStack(null);
 
         transaction.commit();
     }
-    public void startGroupChat(String roomId, String name)
-    {
+
+    public void startGroupChat(String roomId, String name) {
         Bundle bundle = new Bundle();
-        bundle.putString("room_uid", roomId );
-        bundle.putString("room_name", name );
+        bundle.putString("room_uid", roomId);
+        bundle.putString("room_name", name);
 
         Fragment_GroupChat fragment_groupChat = new Fragment_GroupChat();
         fragment_groupChat.setArguments(bundle);
@@ -148,8 +160,8 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
 
         transaction.commit();
     }
-    public void SignOut()
-    {
+
+    public void SignOut() {
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         mUsername = ANONYMOUS;
@@ -158,35 +170,31 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         finishAffinity();
         startActivity(intent);
     }
+
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         //show fragment
-        if (position==0)
-        {
+        if (position == 0) {
 
-           getSupportFragmentManager().beginTransaction().replace(R.id.content_id,messageFragment).addToBackStack("msg").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commit();
 
-        }else  if (position==1)
-        {
-            Fragment_RecentCalls fragment_recentCalls=new Fragment_RecentCalls();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,fragment_recentCalls).addToBackStack("call").commit();
+        } else if (position == 1) {
+            Fragment_RecentCalls fragment_recentCalls = new Fragment_RecentCalls();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_recentCalls).addToBackStack("call").commit();
 
-        }else  if (position==2)
-        {
-            Fragment_Live fragment_live=new Fragment_Live();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,fragment_live).addToBackStack("live").commit();
+        } else if (position == 2) {
+            Fragment_Live fragment_live = new Fragment_Live();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_live).addToBackStack("live").commit();
 
-        }
-        else  if (position==3)
-        {
-            Fragment_UserProfile fragment_userProfile=new Fragment_UserProfile();
-           getSupportFragmentManager().beginTransaction().replace(R.id.content_id,fragment_userProfile).addToBackStack("prfl").commit();
+        } else if (position == 3) {
+            Fragment_UserProfile fragment_userProfile = new Fragment_UserProfile();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_userProfile).addToBackStack("prfl").commit();
         }
 
 
     }
-    public void placeNewCallActivity()
-    {
+
+    public void placeNewCallActivity() {
         Fragment_PlaceCall fragment = new Fragment_PlaceCall();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_id, fragment);
@@ -194,6 +202,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
 
         transaction.commit();
     }
+
     @Override
     public void onBackPressed() {
 
@@ -229,15 +238,16 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
 
             bottomNavigation.setVisibility(View.VISIBLE);
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,messageFragment).addToBackStack("msg").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commit();
 
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.logohdpi);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setTitle( " ");
+            getSupportActionBar().setTitle(" ");
             bottomNavigation.setCurrentItem(0);
         }
     }
+
     @Override
     protected void onServiceConnected() {
         String get = null;
@@ -259,8 +269,8 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         //else userName.setText(get);
         //   mCallButton.setEnabled(true);
     }
-    public void callButtonClicked(String remoteuserName,String photourl,String Userid)
-    {
+
+    public void callButtonClicked(String remoteuserName, String photourl, String Userid) {
         if (remoteuserName.isEmpty()) {
             //Toast.makeText(this, "Please enter a user to call", Toast.LENGTH_LONG).show();
             return;
@@ -268,10 +278,9 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
 
         try {
 
-            try{
+            try {
                 call = getSinchServiceInterface().callUser(Userid);
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
             if (call == null) {
@@ -281,7 +290,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
                 return;
             }
             String callId = call.getCallId();
-            final CallDetails user = new CallDetails(remoteuserName,System.currentTimeMillis(),"outgoing",Userid,photourl);
+            final CallDetails user = new CallDetails(remoteuserName, System.currentTimeMillis(), "outgoing", Userid, photourl);
             databaseHelper.addUserLog(user);
             Intent callScreen = new Intent(this, CallScreenActivity.class);
             callScreen.putExtra("Photourl", photourl);
@@ -297,6 +306,78 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+    private void checkPermissions() {
+        List<String> permissions = new ArrayList<>();
+        String message = "mars permissions:";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_CONTACTS);
+            message += "\n to get contacts from phone.";
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.WRITE_SETTINGS);
+            message += "\n to dim display.";
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.RECORD_AUDIO);
+            message += "\nfor calling funcion.";
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_PHONE_STATE);
+            message += "\nfor calling funcion.";
+            //requestReadPhoneStatePermission();
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.MODIFY_AUDIO_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.MODIFY_AUDIO_SETTINGS);
+            message += "\nfor calling funcion.";
+            //requestReadPhoneStatePermission();
+        }
+
+        if (!permissions.isEmpty()) {
+            // Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            String[] params = permissions.toArray(new String[permissions.size()]);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            }
+        } // else: We already have permissions, so handle as normal
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+                Map<String, Integer> perms = new HashMap<>();
+                // Initial
+                perms.put(Manifest.permission.RECORD_AUDIO, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.MODIFY_AUDIO_SETTINGS, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.READ_PHONE_STATE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.READ_CONTACTS, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.WRITE_SETTINGS, PackageManager.PERMISSION_GRANTED);
+                // Fill with results
+                for (int i = 0; i < permissions.length; i++)
+                    perms.put(permissions[i], grantResults[i]);
+                // Check for ACCESS_FINE_LOCATION and WRITE_EXTERNAL_STORAGE
+                Boolean recordaudio = perms.get(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                Boolean modaudio = perms.get(Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED;
+                Boolean phonestate = perms.get(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+                Boolean contactstate = perms.get(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                Boolean writestate = perms.get(Manifest.permission.WRITE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
+                if (recordaudio && modaudio && phonestate && contactstate && writestate) {
+                    // All Permissions Granted
+
+                    return;
+                    //Toast.makeText(PhoneRegActivity.this, "Thanks for permission", Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
 }
 
 

@@ -2,12 +2,9 @@ package com.grameenphone.mars.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +40,7 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private DatabaseHelper dbHelper;
     private User me;
 
-    public AddAdminAdapter(Context context, ArrayList<User> users, String roomid, ArrayList<Group> group){
+    public AddAdminAdapter(Context context, ArrayList<User> users, String roomid, ArrayList<Group> group) {
         this.context = context;
         this.users = users;
         this.RoomId = roomid;
@@ -55,7 +52,6 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     }
-
 
 
     @Override
@@ -71,9 +67,9 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         final FriendViewHolder itemHolder = (FriendViewHolder) holder;
         final User current = users.get(position);
 
-        itemHolder.emailTextView.setText(current.getPhone());
+        itemHolder.emailTextView.setText("01XXXYYYZZZ");
 
-        if(me.getUid().equals(current.getUid())){
+        if (me.getUid().equals(current.getUid())) {
             itemHolder.nameTextView.setText("আপনি");
             me.setAdmin(current.isAdmin());
         } else {
@@ -82,18 +78,17 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         owner = group.get(0).getOwner();
 
-        if(current.isAdmin()) {
+        if (current.isAdmin()) {
             itemHolder.adminSeal.setVisibility(View.VISIBLE);
 
         }
-        if(current.isAdmin()&&me.getUid().equals(current.getUid())) {
+        if (current.isAdmin() && me.getUid().equals(current.getUid())) {
 
             itemHolder.menuViewOption.setVisibility(View.VISIBLE);
         }
 
 
-
-        if(current.getPhotoUrl() != null){
+        if (current.getPhotoUrl() != null) {
             Glide.with(context)
                     .load(current.getPhotoUrl())
                     .into(itemHolder.friendImageView);
@@ -108,20 +103,16 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onClick(View view) {
 
 
-
-
                 PopupMenu popup = new PopupMenu(context, itemHolder.menuViewOption);
                 popup.inflate(R.menu.make_admin_remove_member);
 
 
-
-
                 final Menu popupMenu = popup.getMenu();
-                if(current.getUid().equals(owner)){
+                if (current.getUid().equals(owner)) {
                     popupMenu.findItem(R.id.make_admin_menu).setEnabled(false);
                     popupMenu.findItem(R.id.remove_admin_menu).setEnabled(false);
                     popupMenu.findItem(R.id.remove_member_menu).setEnabled(false);
-                } else if ( current.isAdmin() ){
+                } else if (current.isAdmin()) {
                     popupMenu.findItem(R.id.make_admin_menu).setEnabled(false);
                 } else {
                     popupMenu.findItem(R.id.remove_admin_menu).setEnabled(false);
@@ -137,7 +128,7 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 mFirebaseDatabaseReference.child("group_details").child(RoomId).child("admin").child(current.getUid()).setValue(true);
 
                                 Chat systemMessage = new Chat();
-                                systemMessage.setMessage(current.getName()+"\n কে অ্যাডমিন বানিয়েছেন ");
+                                systemMessage.setMessage(current.getName() + "\n কে অ্যাডমিন বানিয়েছেন ");
                                 systemMessage.setSender(me.getName());
                                 systemMessage.setSenderUid(me.getUid());
                                 systemMessage.setMessageType("system");
@@ -151,14 +142,13 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 users.get(position).setAdmin(true);
 
 
-
                                 break;
                             case R.id.remove_member_menu:
 
                                 mFirebaseDatabaseReference.child("group_details").child(RoomId).child("member").child(current.getUid()).removeValue();
                                 mFirebaseDatabaseReference.child("group_details").child(RoomId).child("admin").child(current.getUid()).removeValue();
                                 Chat systemMessageRemove = new Chat();
-                                systemMessageRemove.setMessage(current.getName()+"\n কে রিমুভ করেছেন ");
+                                systemMessageRemove.setMessage(current.getName() + "\n কে রিমুভ করেছেন ");
                                 systemMessageRemove.setSender(me.getName());
                                 systemMessageRemove.setSenderUid(me.getUid());
                                 systemMessageRemove.setMessageType("system");
@@ -178,7 +168,7 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                                 mFirebaseDatabaseReference.child("group_details").child(RoomId).child("admin").child(current.getUid()).removeValue();
                                 Chat systemMessageRemoveAdmin = new Chat();
-                                systemMessageRemoveAdmin.setMessage(current.getName()+"\n কে অ্যাডমিন থেকে রিমুভ করেছেন ");
+                                systemMessageRemoveAdmin.setMessage(current.getName() + "\n কে অ্যাডমিন থেকে রিমুভ করেছেন ");
                                 systemMessageRemoveAdmin.setSender(me.getName());
                                 systemMessageRemoveAdmin.setSenderUid(me.getUid());
                                 systemMessageRemoveAdmin.setMessageType("system");
@@ -199,15 +189,9 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 });
 
 
-
-
-                if( me.isAdmin() ) {
+                if (me.isAdmin()) {
                     popup.show();
                 }
-
-
-
-
 
 
             }
@@ -219,8 +203,6 @@ public class AddAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return users.size();
     }
-
-
 
 
     private class FriendViewHolder extends RecyclerView.ViewHolder {

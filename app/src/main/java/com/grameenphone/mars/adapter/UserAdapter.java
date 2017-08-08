@@ -25,20 +25,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
 
     private ArrayList<User> callDetailses;
     Context mContext;
-    Boolean NewCall=true;
+    Boolean NewCall = true;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, genre;
-        ImageView callicon,type;
+        ImageView callicon, type;
         LinearLayout pa;
         CircleImageView userImage;
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.person_name);
             genre = (TextView) view.findViewById(R.id.calltype);
-            callicon=(ImageView)view.findViewById(R.id.person_call);
-            userImage=(CircleImageView)view.findViewById(R.id.person_photo);
-            pa=(LinearLayout)view.findViewById(R.id.parent);
+            callicon = (ImageView) view.findViewById(R.id.person_call);
+            userImage = (CircleImageView) view.findViewById(R.id.person_photo);
+            pa = (LinearLayout) view.findViewById(R.id.parent);
             view.setTag(view);
             // view.setOnClickListener((View.OnClickListener) this);
             // year = (TextView) view.findViewById(R.id.year);
@@ -46,17 +47,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         }
 
 
-
-
-
     }
 
 
-    public UserAdapter(Context context, ArrayList<User>callDetailses2,Boolean value)
-    {
-        this.mContext=context;
-        this.callDetailses=callDetailses2;
-        this.NewCall=value;
+    public UserAdapter(Context context, ArrayList<User> callDetailses2, Boolean value) {
+        this.mContext = context;
+        this.callDetailses = callDetailses2;
+        this.NewCall = value;
     }
 
     @Override
@@ -68,23 +65,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     }
 
 
-    public void updateList(ArrayList<User>data) {
+    public void updateList(ArrayList<User> data) {
         callDetailses = data;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         final User user = callDetailses.get(position);
-        String name=user.getName();
+        String name = user.getName();
         holder.title.setText(name);
-        String lilname=name.trim().split("\\s+")[0];
-        if(!NewCall)  holder.genre.setText(lilname +" কে ম্যাসেজ করুন");
+        String lilname = name.trim().split("\\s+")[0];
+        if (!NewCall) holder.genre.setText(lilname + " কে ম্যাসেজ করুন");
         else {
-            holder.genre.setText(lilname +" কে ভয়েস কল করুন");
+            holder.genre.setText(lilname + " কে ভয়েস কল করুন");
         }
 
-        if(user.getPhotoUrl() != null){
+        if (user.getPhotoUrl() != null) {
             Glide.with(holder.userImage.getContext())
                     .load(user.getPhotoUrl())
                     .into(holder.userImage);
@@ -92,22 +90,29 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             holder.userImage.setBackgroundResource(
                     R.drawable.ic_user_pic_02);
         }
-        if(!NewCall)holder.callicon.setImageDrawable(null);
+        if (!NewCall) holder.callicon.setImageDrawable(null);
         else holder.callicon.setBackgroundResource(
                 R.drawable.ic_call_icon);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               if(NewCall)
-               {((MainActivityHolder)mContext).callButtonClicked (callDetailses.get(position).getName(),
-                       callDetailses.get(position).getPhotoUrl(),callDetailses.get(position).getUid());
-                  ;
-               }
-               else
-               {
-                   ((MainActivityHolder)mContext).StartP2p(callDetailses.get(position).getUid(),callDetailses.get(position).getName());
-               }
+                if (NewCall) {
+                    ((MainActivityHolder) mContext).callButtonClicked(callDetailses.get(position).getName(),
+                            callDetailses.get(position).getPhotoUrl(), callDetailses.get(position).getUid());
+                    ;
+                } else {
+                    if (mContext.getClass().getName().contains("MainActivityHolder")) {
+                        ((MainActivityHolder) mContext).StartP2p(callDetailses.get(position).getUid(), callDetailses.get(position).getName());
+                    }
+
+                    if (mContext.getClass().getName().contains("NewMessageActivity")) {
+                        ((NewMessageActivity) mContext).StartP2p(callDetailses.get(position).getUid(), callDetailses.get(position).getName());
+                    }
+
+
+
+                }
 
             }
         });

@@ -3,6 +3,7 @@ package com.grameenphone.mars.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.grameenphone.mars.R;
 import com.grameenphone.mars.adapter.UserAdapter;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
+import com.grameenphone.mars.fragment.Fragment_PrivateChat;
 import com.grameenphone.mars.model.User;
 import com.grameenphone.mars.model.Usersecond;
 import com.grameenphone.mars.utility.Compare;
@@ -151,22 +153,26 @@ public class NewMessageActivity extends AppCompatActivity {
     public void onEvent(Usersecond event){
         // your implementation
 
-        startp2pChat(event.getName(),event.getUid());
+        StartP2p(event.getUid(),event.getName());
     }
 
-    public void startp2pChat(String name,String receiverUid){
 
 
-           User me= dbHelper.getMe();
-       String UID= Compare.getRoomName(me.getUid(),receiverUid);
-        Intent intent = new Intent(NewMessageActivity.this, ChatRoomActivity.class);
+    public void StartP2p(String roomId, String name)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("room_uid", roomId );
+        bundle.putString("room_name", name );
 
-        intent.putExtra("room_name", name);
-        intent.putExtra("room_uid", UID);
+        Fragment_PrivateChat fragment = new Fragment_PrivateChat();
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id, fragment);
 
-        startActivity(intent);
-        finish();
+        transaction.addToBackStack("p2p");
+        //    transaction.addToBackStack(null);
 
+        transaction.commit();
     }
 
 

@@ -15,7 +15,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_user_pic_02"
+            android:background="@drawable/user_pic_02"
             android:layout_above="@+id/linearLayout"
             android:layout_centerHorizontal="true" />
     <LinearLayout
@@ -68,7 +68,7 @@
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginRight="82dp"
-            android:background="@drawable/ic_decline_call"
+            android:background="@drawable/decline_call"
           />
 
         <Button
@@ -76,7 +76,7 @@
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_toRightOf="@id/declineButton"
-            android:background="@drawable/ic_receive_call" />
+            android:background="@drawable/receive_call" />
 
     </LinearLayout>
     <TextView

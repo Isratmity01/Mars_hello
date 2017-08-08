@@ -197,7 +197,7 @@ public class Fragment_PrivateChat extends Fragment {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setHasOptionsMenu(true);
         getActivity().findViewById(R.id.myBottomNavigation_ID).setVisibility(View.GONE);
-       Bundle bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
         String room_id = bundle.getString("room_uid");
        // roomName = bundle.getString("room_name");
         dbHelper = new DatabaseHelper(getActivity());
