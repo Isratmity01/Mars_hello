@@ -58,8 +58,6 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.holder_main);
         Intent intent = getIntent();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        firstRun= sharedPreferences.getBoolean("fRun", false);
         Name = intent.getStringExtra("room_name");
         roomID = intent.getStringExtra("room_uid");
         roomType = intent.getStringExtra("room_type");

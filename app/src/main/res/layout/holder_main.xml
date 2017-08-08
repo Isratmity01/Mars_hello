@@ -25,13 +25,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/topview"
-        android:layout_below="@id/tabbar_call"
 
-        android:background="@color/border_color"/>
     <include layout="@layout/content_main" />
 
 

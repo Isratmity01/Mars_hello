@@ -109,14 +109,14 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
     private SwipeRefreshLayout swipeContainer;
     private FirebaseAuth mFirebaseAuth;
     public static FirebaseUser mFirebaseUser;
-
+    private boolean firstRun;
     ViewGroup.MarginLayoutParams marginLayoutParams;
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference1;
     private DatabaseReference mFirebaseDatabaseReference;
     private DatabaseHelper dbHelper;
     private Toolbar toolbar;
-
+    SharedPreferences sharedPreferences;
     View fragmentView;
     BottomNavigationView bottomNavigationView;
     private RoomListAdapter roomListAdapter;
@@ -147,6 +147,9 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle( "Messages");
             bindViews(fragmentView);
+             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+
         }
 
 
@@ -218,7 +221,7 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
     public void init()
     {
 
-
+        firstRun= sharedPreferences.getBoolean("fRun", false);
         chatRooms = populateChatRoomArraylist();
 
 
@@ -261,7 +264,12 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
             }
         };
 
-
+        if(firstRun==false)
+        {
+            Toast.makeText(getActivity(),"ডাটা লোড হচ্ছে, দয়া করে অপেক্ষা করুন",Toast.LENGTH_LONG).show();
+            callfirebasefunction();
+            sharedPreferences.edit().putBoolean("fRun", true).apply();
+        }
 
     }
     @Override
@@ -309,23 +317,7 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
 
         super.onCreateOptionsMenu(menu,inflater);
     }
-    public void firstTime() {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-
-
-                chatRooms.clear();
-                chatRooms.addAll(populateChatRoomArraylist());
-
-
-                roomListAdapter.refresh();
-
-            }
-        }, 5 * 1000);
-    }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
