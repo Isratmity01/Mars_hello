@@ -20,6 +20,8 @@ import com.grameenphone.mars.activity.GroupChatActivity;
 import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.dbhelper.DatabaseHelper;
 import com.grameenphone.mars.events.PushNotificationEvent;
+import com.grameenphone.mars.fragment.Fragment_GroupChat;
+import com.grameenphone.mars.fragment.Fragment_PrivateChat;
 import com.grameenphone.mars.model.Chat;
 import com.grameenphone.mars.model.ChatSent;
 import com.grameenphone.mars.model.ChatSent2;
@@ -87,7 +89,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 databaseHelper.addUnreadCount(roomid,0);
                 Gson gson = new Gson();
                 Chat staff = gson.fromJson(chats, Chat.class);
-                if(title!=sender)
+                if(!title.equals(sender))
                 {
                     if (staff.getType() == null) {
 
@@ -108,6 +110,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
                     }
+
+                    if (!Fragment_GroupChat.active) {
+
+                    sendNotification(title,
+                            message,
+                            sender,
+                            fcmToken,
+                            roomid);
+                }else if (Fragment_GroupChat.active&&!Fragment_GroupChat.getUser().equals(title)) {
+
+                    sendNotification(title,
+                            message,
+                            sender,
+                            fcmToken,
+                            roomid);
+                }
+                    else {
+                        EventBus.getDefault().post(new PushNotificationEvent(title,
+                                message,
+                                sender,
+                                fcmToken,
+                                roomid));
+                    }
                 }
             else {
                     if (staff.getType() == null) {
@@ -125,23 +150,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         databaseHelper.addMessage(receivedchat2, staff.getChatId());
 
                     }
+                    if (!Fragment_PrivateChat.active ) {
+
+                        sendNotification(title,
+                                message,
+                                sender,
+                                fcmToken,
+                                roomid);
+
+                    }
+                    else if (Fragment_PrivateChat.active&&!Fragment_PrivateChat.getUser().equals(sender)) {
+
+                        EventBus.getDefault().post(new PushNotificationEvent(title,
+                                message,
+                                sender,
+                                fcmToken,
+                                roomid));
+                    }
+
+                   else {
+                        EventBus.getDefault().post(new PushNotificationEvent(title,
+                                message,
+                                sender,
+                                fcmToken,
+                                roomid));
+                    }
                 }
 
 
-                if (databaseHelper.roomNotificationState(roomid)==0) {
 
-                    sendNotification(title,
-                            message,
-                            sender,
-                            fcmToken,
-                            roomid);
-                } else {
-                    EventBus.getDefault().post(new PushNotificationEvent(title,
-                            message,
-                            sender,
-                            fcmToken,
-                            roomid));
-                }
                /* sendNotification(title,
                         message,
                         sender,

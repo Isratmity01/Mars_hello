@@ -56,7 +56,7 @@ import java.util.Map;
 public class MainActivityHolder extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 180;
     private GoogleApiClient mGoogleApiClient;
-    public static AHBottomNavigation bottomNavigation;
+    public  AHBottomNavigation bottomNavigation;
     MessageFragment messageFragment;
     DatabaseHelper databaseHelper;
     Call call;
@@ -69,7 +69,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     String Name, roomID, roomType;
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
-
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +104,11 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         ab.setDisplayHomeAsUpEnabled(true);
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
         bottomNavigation.setOnTabSelectedListener(this);
-        // bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setBehaviorTranslationEnabled(false);
-        bottomNavigation.isForceTitlesDisplay();
-
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimaryDark));
+        bottomNavigation.setInactiveColor(getResources().getColor(R.color.disabled));
+bottomNavigation.clearAnimation();
 
         this.createNavItems();
         if (Name != null && roomID != null && roomType.equals("grp")) {
@@ -133,12 +134,13 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         bottomNavigation.addItem(dramaItem);
         bottomNavigation.addItem(docstem);
         bottomNavigation.addItem(docstem2);
-        bottomNavigation.setInactiveColor(getResources().getColor(R.color.disabled));
+        bottomNavigation.setCurrentItem(0);
+
         //set properties
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FEFEFE"));
+      //  bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FEFEFE"));
 
         //set current item
-        bottomNavigation.setCurrentItem(0);
+        //bottomNavigation.setCurrentItem(0);
 
     }
 
@@ -171,7 +173,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         transaction.addToBackStack("grp");
         //    transaction.addToBackStack(null);
 
-        transaction.commitAllowingStateLoss();
+        transaction.commit();
     }
 
     public void SignOut() {
@@ -185,26 +187,27 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     }
 
     @Override
-    public void onTabSelected(int position, boolean wasSelected) {
+    public boolean onTabSelected(int position, boolean wasSelected) {
         //show fragment
         if (position == 0) {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commit();
 
         } else if (position == 1) {
             Fragment_RecentCalls fragment_recentCalls = new Fragment_RecentCalls();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_recentCalls).addToBackStack("call").commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_recentCalls).addToBackStack("call").commit();
 
         } else if (position == 2) {
             Fragment_Live fragment_live = new Fragment_Live();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_live).addToBackStack("live").commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_live).addToBackStack("live").commit();
 
         } else if (position == 3) {
             Fragment_UserProfile fragment_userProfile = new Fragment_UserProfile();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_userProfile).addToBackStack("prfl").commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_userProfile).addToBackStack("prfl").commit();
         }
 
 
+        return true;
     }
 
     public void placeNewCallActivity() {
@@ -219,9 +222,9 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     @Override
     public void onBackPressed() {
 
-        int count = getSupportFragmentManager().getBackStackEntryCount();
 
-        if (count == 0) {
+
+        if (MessageFragment.active) {
 
             finish();
             //additional code
@@ -390,7 +393,16 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unbindService(this);
+        }catch (Exception e)
+        {
 
+        }
+    }
 }
 
 

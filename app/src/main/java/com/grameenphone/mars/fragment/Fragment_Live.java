@@ -328,6 +328,14 @@ private View fragmentView;
             }
         });
 
+        jumpToBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int lastPosition =
+                        mLinearLayoutManager.getItemCount();
+                mMessageRecyclerView.scrollToPosition( lastPosition -1);
+            }
+        });
         emojiconEditText.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -461,8 +469,8 @@ private View fragmentView;
 
 
                 }
-
-
+                int chatCount = chatFirebaseAdapter.getItemCount();
+                mMessageRecyclerView.scrollToPosition(chatCount);
 
 
             }
@@ -472,23 +480,50 @@ private View fragmentView;
 
 
         chatFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int chatCount = chatFirebaseAdapter.getItemCount();
-                int lastVisiblePosition =
-                        mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the
-                // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (chatCount - 1) &&
-                                lastVisiblePosition == (positionStart - 1))) {
-                    mMessageRecyclerView.scrollToPosition(positionStart);
-                }
-            }
-        });
 
+            @Override
+
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+
+                super.onItemRangeInserted(positionStart, itemCount);
+
+                int chatCount = chatFirebaseAdapter.getItemCount();
+
+
+
+                //System.out.println("chat count : "+chatCount);
+
+                //System.out.println("chat start : "+positionStart);
+
+                int lastVisiblePosition =
+
+                        mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+
+
+
+                //System.out.println("chat last : "+lastVisiblePosition);
+
+
+
+                // If the recycler view is initially being loaded or the
+
+                // user is at the bottom of the list, scroll to the bottom
+
+                // of the list to show the newly added message.
+
+                if (lastVisiblePosition == -1 ||
+
+                        (positionStart >= (chatCount - 1) &&
+
+                                lastVisiblePosition >= (positionStart - 10))) {
+
+                    mMessageRecyclerView.scrollToPosition(positionStart);
+
+                }
+
+            }
+
+        });
 
 
 

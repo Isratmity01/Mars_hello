@@ -155,7 +155,29 @@ public class Fragment_GroupChat extends Fragment {
     public Fragment_GroupChat() {
         // Required empty public constructor
     }
+    public  static boolean active = false;
+    public  static String user ;
 
+    public static String getUser() {
+        return user;
+    }
+
+    public static void setUser(String user) {
+        Fragment_GroupChat.user = user;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        setUser(null);
+    }
 
 
     @Override
@@ -167,7 +189,8 @@ public class Fragment_GroupChat extends Fragment {
        Bundle bundle = this.getArguments();
         String room_id = bundle.getString("room_uid");
         roomName = bundle.getString("room_name");
-dbHelper=new DatabaseHelper(getActivity());
+        setUser(roomName);
+        dbHelper=new DatabaseHelper(getActivity());
         MESSAGES_CHILD = room_id;
         dbHelper.updateNotificationStateOfRoom(MESSAGES_CHILD, 0);
 

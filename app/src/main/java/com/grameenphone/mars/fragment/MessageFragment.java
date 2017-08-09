@@ -121,6 +121,20 @@ public class MessageFragment extends Fragment implements GoogleApiClient.OnConne
     BottomNavigationView bottomNavigationView;
     private RoomListAdapter roomListAdapter;
     EventBus myEventBus;
+    public  static boolean active = false;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+
+    }
     private static ArrayList<ChatRoom> chatRooms = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
