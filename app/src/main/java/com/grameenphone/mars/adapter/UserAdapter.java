@@ -14,7 +14,10 @@ import com.grameenphone.mars.R;
 import com.grameenphone.mars.activity.LogActivity;
 import com.grameenphone.mars.activity.MainActivityHolder;
 import com.grameenphone.mars.activity.NewMessageActivity;
+import com.grameenphone.mars.model.CallClicked;
 import com.grameenphone.mars.model.User;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -102,14 +105,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                             callDetailses.get(position).getPhotoUrl(), callDetailses.get(position).getUid());
                     ;
                 } else {
-                    if (mContext.getClass().getName().contains("MainActivityHolder")) {
+              /*      if (mContext.getClass().getName().contains("MainActivityHolder")) {
                         ((MainActivityHolder) mContext).StartP2p(callDetailses.get(position).getUid(), callDetailses.get(position).getName());
                     }
 
-                    if (mContext.getClass().getName().contains("NewMessageActivity")) {
+                  else  if (mContext.getClass().getName().contains("NewMessageActivity")) {
                         ((NewMessageActivity) mContext).StartP2p(callDetailses.get(position).getUid(), callDetailses.get(position).getName());
-                    }
-
+                    }*/
+                  EventBus.getDefault().post(new CallClicked(callDetailses.get(position).getUid(), callDetailses.get(position).getName()));
 
 
                 }

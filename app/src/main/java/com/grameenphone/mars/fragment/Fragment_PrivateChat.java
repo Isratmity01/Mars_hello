@@ -166,7 +166,7 @@ public class Fragment_PrivateChat extends Fragment {
     private ImageView attachment;
     private ImageView pushToTalk;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private String receiver_uid;
+    private String receiver_uid,roomName;
 
 
     private DatabaseReference mFirebaseDatabaseReference;
@@ -199,7 +199,7 @@ public class Fragment_PrivateChat extends Fragment {
         getActivity().findViewById(R.id.myBottomNavigation_ID).setVisibility(View.GONE);
         Bundle bundle = this.getArguments();
         String room_id = bundle.getString("room_uid");
-       // roomName = bundle.getString("room_name");
+        roomName = bundle.getString("room_name");
         dbHelper = new DatabaseHelper(getActivity());
         MESSAGES_CHILD = room_id;
         me = dbHelper.getMe();
@@ -474,11 +474,7 @@ public class Fragment_PrivateChat extends Fragment {
 
 
     }
-    @Subscribe
-    public void onEvent(User event){
-        // your implementation
-        ((LogActivity)getActivity()).callButtonClicked(event.getName(),event.getPhotoUrl(),event.getUid());
-    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -796,11 +792,7 @@ public class Fragment_PrivateChat extends Fragment {
 
 
     }
-    @Subscribe
-    public void onEvent(String s){
-        // your implementation
 
-    }
 
     private void changeEmojiKeyboardIcon(ImageView iconToBeChanged, int drawableResourceId) {
         iconToBeChanged.setImageResource(drawableResourceId);

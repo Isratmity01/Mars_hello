@@ -38,10 +38,14 @@ import com.grameenphone.mars.fragment.Fragment_RecentCalls;
 import com.grameenphone.mars.fragment.Fragment_UserProfile;
 import com.grameenphone.mars.fragment.MessageFragment;
 import com.grameenphone.mars.gcm.SinchService;
+import com.grameenphone.mars.model.CallClicked;
 import com.grameenphone.mars.model.CallDetails;
 import com.grameenphone.mars.model.User;
 import com.sinch.android.rtc.MissingPermissionException;
 import com.sinch.android.rtc.calling.Call;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +64,8 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
     private String mUsername;
     public static final String ANONYMOUS = "anonymous";
     User me;
+
+    private String mPhotoUrl;
     String Name, roomID, roomType;
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
@@ -69,11 +75,18 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.holder_main);
         Intent intent = getIntent();
+
         Name = intent.getStringExtra("room_name");
         roomID = intent.getStringExtra("room_uid");
         roomType = intent.getStringExtra("room_type");
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+            mUsername = mFirebaseUser.getDisplayName();
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         messageFragment = new MessageFragment();
@@ -142,7 +155,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         transaction.addToBackStack("p2p");
         //    transaction.addToBackStack(null);
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     public void startGroupChat(String roomId, String name) {
@@ -158,7 +171,7 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         transaction.addToBackStack("grp");
         //    transaction.addToBackStack(null);
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     public void SignOut() {
@@ -176,19 +189,19 @@ public class MainActivityHolder extends BaseActivity implements AHBottomNavigati
         //show fragment
         if (position == 0) {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, messageFragment).addToBackStack("msg").commitAllowingStateLoss();
 
         } else if (position == 1) {
             Fragment_RecentCalls fragment_recentCalls = new Fragment_RecentCalls();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_recentCalls).addToBackStack("call").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_recentCalls).addToBackStack("call").commitAllowingStateLoss();
 
         } else if (position == 2) {
             Fragment_Live fragment_live = new Fragment_Live();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_live).addToBackStack("live").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_live).addToBackStack("live").commitAllowingStateLoss();
 
         } else if (position == 3) {
             Fragment_UserProfile fragment_userProfile = new Fragment_UserProfile();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_userProfile).addToBackStack("prfl").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, fragment_userProfile).addToBackStack("prfl").commitAllowingStateLoss();
         }
 
 

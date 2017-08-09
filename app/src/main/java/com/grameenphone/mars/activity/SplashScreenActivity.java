@@ -11,14 +11,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.grameenphone.mars.R;
 
 public class SplashScreenActivity extends Activity
 {
 
-    private static long SPLASH_MILLIS = 1200;
+    private static long SPLASH_MILLIS = 800;
 
     private String mClassToLaunchPackage;
+    private FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -54,10 +58,18 @@ public class SplashScreenActivity extends Activity
 
 
     }
-    private void startARActivity()
-    {
-        Intent i = new Intent();
-        i.setClassName(mClassToLaunchPackage, "com.grameenphone.mars.activity.MainActivityHolder");
-        startActivity(i);
+    private void startARActivity() {
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser == null) {
+            // Not signed in, launch the Sign In activity
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        } else {
+            Intent i = new Intent();
+            i.setClassName(mClassToLaunchPackage, "com.grameenphone.mars.activity.MainActivityHolder");
+            startActivity(i);
+        }
     }
 }
